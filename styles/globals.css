@@ -1,1 +1,194 @@
+:root {
+  --bg: #14141a;
+  --surface: #1e1e26;
+  --surface-2: #26262f;
+  --text: #f2f2f5;
+  --muted: #8a8a99;
+  --accent: #fb7299;
+  --accent-2: #23ade5;
+  --border: #33333d;
+  --radius: 14px;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  padding: 0;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+}
+
+a { color: inherit; }
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 20px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Signature element: a quiet nod to bilibili's danmaku (scrolling
+   bullet-comment) overlay, dimmed into the background so it reads as
+   texture rather than a UI element. */
+.danmaku-strip {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  overflow: hidden;
+  opacity: 0.35;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.danmaku-strip span {
+  display: inline-block;
+  padding-right: 60px;
+  font-size: 13px;
+  color: var(--accent-2);
+  animation: scroll-left 22s linear infinite;
+}
+@keyframes scroll-left {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-100%); }
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+h1 {
+  font-size: clamp(28px, 4vw, 38px);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 32px;
+  font-size: 15px;
+  text-align: center;
+  max-width: 480px;
+}
+
+.card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"] {
+  flex: 1;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 14px;
+  font-family: var(--mono);
+}
+input[type="text"]:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+button {
+  background: var(--accent);
+  color: #1a0a10;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.1s ease, opacity 0.15s ease;
+}
+button:hover:not(:disabled) { opacity: 0.92; }
+button:active:not(:disabled) { transform: scale(0.98); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.error {
+  margin-top: 16px;
+  color: #ff9aa8;
+  background: rgba(251, 114, 153, 0.08);
+  border: 1px solid rgba(251, 114, 153, 0.25);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+}
+
+.result {
+  margin-top: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.result img {
+  width: 160px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--surface-2);
+  flex-shrink: 0;
+}
+
+.result-meta { flex: 1; min-width: 0; }
+
+.result-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin: 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.result-sub {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0 0 12px;
+}
+
+.download-btn {
+  display: inline-block;
+  background: var(--accent-2);
+  color: #071a24;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.footnote {
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+  max-width: 480px;
+  line-height: 1.5;
+}
 

@@ -18,7 +18,19 @@ export const config = {
 export default async function handler(req, res) {
   const { url, filename } = req.query;
 
-  if (!url || typeof url !== "string" || !url.includes(".hdslb.com")) {
+  const ALLOWED_HOST_FRAGMENTS = [
+    ".hdslb.com",
+    ".bilivideo.com",
+    ".bilivideo.cn",
+    ".akamaized.net",
+    ".mcdn.bilivideo.cn",
+  ];
+
+  const isAllowedHost =
+    typeof url === "string" &&
+    ALLOWED_HOST_FRAGMENTS.some((fragment) => url.includes(fragment));
+
+  if (!url || typeof url !== "string" || !isAllowedHost) {
     return res.status(400).json({ error: "Invalid or missing stream url" });
   }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Head from "next/head";
+import Layout from "../components/Layout";
 
 const SAMPLE_COMMENTS = [
   "把链接粘进来就行",
@@ -48,71 +48,67 @@ export default function Home() {
     : null;
 
   return (
-    <div className="page">
-      <Head>
-        <title>Bilibili Video Downloader</title>
-        <meta name="description" content="Paste a bilibili video link, get an mp4 download." />
-      </Head>
+    <Layout>
+      <div className="page">
+        <div className="danmaku-strip">
+          {SAMPLE_COMMENTS.map((c, i) => (
+            <span key={i} style={{ animationDelay: `${i * 6}s` }}>
+              {c}
+            </span>
+          ))}
+        </div>
 
-      <div className="danmaku-strip">
-        {SAMPLE_COMMENTS.map((c, i) => (
-          <span key={i} style={{ animationDelay: `${i * 6}s` }}>
-            {c}
-          </span>
-        ))}
-      </div>
+        <div className="eyebrow">bilibili → mp4</div>
+        <h1>Video Downloader</h1>
+        <p className="subtitle">
+          Paste a bilibili.com (or b23.tv) video link below to pull down its
+          title, cover, and a direct mp4 download.
+        </p>
 
-      <div className="eyebrow">bilibili → mp4</div>
-      <h1>Video Downloader</h1>
-      <p className="subtitle">
-        Paste a bilibili.com (or b23.tv) video link below to pull down its
-        title, cover, and a direct mp4 download.
-      </p>
+        <div className="card">
+          <form className="input-row" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="https://www.bilibili.com/video/BV1xx411c7mD"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+            />
+            <button type="submit" disabled={loading}>
+              {loading ? "Fetching…" : "Fetch"}
+            </button>
+          </form>
 
-      <div className="card">
-        <form className="input-row" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="https://www.bilibili.com/video/BV1xx411c7mD"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? "Fetching…" : "Fetch"}
-          </button>
-        </form>
+          {error && <div className="error">{error}</div>}
 
-        {error && <div className="error">{error}</div>}
-
-        {result && (
-          <div className="result">
-            {result.cover && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={result.cover} alt={result.title} referrerPolicy="no-referrer" />
-            )}
-            <div className="result-meta">
-              <p className="result-title">{result.title}</p>
-              <p className="result-sub">
-                {result.owner ? `${result.owner} · ` : ""}
-                {result.qualityLabel}
-                {result.sizeBytes
-                  ? ` · ${(result.sizeBytes / 1024 / 1024).toFixed(1)} MB`
-                  : ""}
-              </p>
-              <a className="download-btn" href={downloadHref}>
-                Download mp4
-              </a>
+          {result && (
+            <div className="result">
+              {result.cover && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={result.cover} alt={result.title} referrerPolicy="no-referrer" />
+              )}
+              <div className="result-meta">
+                <p className="result-title">{result.title}</p>
+                <p className="result-sub">
+                  {result.owner ? `${result.owner} · ` : ""}
+                  {result.qualityLabel}
+                  {result.sizeBytes
+                    ? ` · ${(result.sizeBytes / 1024 / 1024).toFixed(1)} MB`
+                    : ""}
+                </p>
+                <a className="download-btn" href={downloadHref}>
+                  Download mp4
+                </a>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
+        <p className="footnote">
+          For personal, non-commercial use only. Only download videos you
+          own or have permission to save — respect bilibili's terms of
+          service and the original creator's rights.
+        </p>
       </div>
-
-      <p className="footnote">
-        For personal, non-commercial use only. Only download videos you own
-        or have permission to save — respect bilibili's terms of service and
-        the original creator's rights.
-      </p>
-    </div>
+    </Layout>
   );
-}
-
+                  }

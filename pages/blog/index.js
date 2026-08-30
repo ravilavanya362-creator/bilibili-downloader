@@ -1,0 +1,42 @@
+import Link from "next/link";
+import Layout from "../../components/Layout";
+import { getAllPosts } from "../../lib/posts";
+
+export default function BlogIndex({ posts }) {
+  return (
+    <Layout
+      title="Blog"
+      description="Articles about video quality, streaming formats, and downloading responsibly."
+    >
+      <div className="content-page">
+        <div className="eyebrow">Blog</div>
+        <h1>Articles</h1>
+        <p className="subtitle" style={{ textAlign: "left", margin: "0 0 32px" }}>
+          Short, plain-language reads on how video streaming and downloading
+          actually work.
+        </p>
+
+        <div className="post-list">
+          {posts.map((post) => (
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="post-card">
+              <span className="post-date">
+                {new Date(post.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+              <h2>{post.title}</h2>
+              <p>{post.excerpt}</p>
+              <span className="post-read-more">Read article →</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+
+export async function getStaticProps() {
+  return { props: { posts: getAllPosts() } };
+            }

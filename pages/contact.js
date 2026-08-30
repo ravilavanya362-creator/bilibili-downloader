@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
 
-const CONTACT_EMAIL = "hello@example.com";
+const CONTACT_EMAIL = "pavanibevara045@gmail.com";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });

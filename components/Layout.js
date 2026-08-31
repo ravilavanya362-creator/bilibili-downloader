@@ -22,14 +22,13 @@ export default function Layout({ children, title, description }) {
   <Link href="/blog" className="nav-link">Blog</Link>
   
         <Link href="/" className="brand-centered">
-          <div className="brand-logo-img-wrapper" style={{ width: '36px', height: '36px', display: 'flex', alignItems: 'center' }}>
-            <img src="/Logo2.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '8px' }} />
-          </div>
+          <img src="/Logo2.png" alt="Logo" style={{ height: '36px', width: 'auto', objectFit: 'contain', borderRadius: '8px' }} />
           <div className="brand-logo-text">
             <span className="brand-name-main">Bili</span>
             <span className="brand-name-accent">Save</span>
           </div>
         </Link>
+
 
 
   <Link href="/about" className="nav-link">About</Link>

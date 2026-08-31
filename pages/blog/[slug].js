@@ -7,6 +7,9 @@ export default function BlogPost({ post }) {
   return (
     <Layout title={post.title} description={post.excerpt}>
       <article className="content-page post-article">
+        <div className="post-article-thumb" style={{ background: post.gradient }}>
+          {post.emoji}
+        </div>
         <span className="post-date">
           {new Date(post.date).toLocaleDateString("en-US", {
             year: "numeric",

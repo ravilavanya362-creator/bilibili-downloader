@@ -77,9 +77,10 @@ export default function Home() {
   </div>
   
   {/* Attractive Premium Heading */}
-  <h1 className="hero-title">
-    Bilibili Video <span className="title-accent">Downloader</span>
-  </h1>
+<h1 className="hero-title">
+  Bilibili Video <span className="title-accent">Downloader</span>
+</h1>
+
   
   <p className="hero-desc">
     Paste any video link to save ultra-fast, high quality MP4 files with no watermark.

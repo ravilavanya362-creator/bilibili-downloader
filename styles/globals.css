@@ -45,25 +45,23 @@ a {
    1. NAVBAR & BILI SAVE LOGO (FIXED)
 ========================================= */
 .site-header {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(12px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid var(--border);
-  padding: 14px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 14px 20px;
+  position: relative;
 }
 
-.brand {
+.brand-centered {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: inline-flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  cursor: pointer;
 }
+
 
 .brand-icon {
   width: 38px;

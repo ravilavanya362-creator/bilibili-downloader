@@ -34,6 +34,9 @@ a { color: inherit; }
   overflow: hidden;
 }
 
+/* Signature element: a quiet nod to bilibili's danmaku (scrolling
+   bullet-comment) overlay, dimmed into the background so it reads as
+   texture rather than a UI element. */
 .danmaku-strip {
   position: absolute;
   top: 18px;

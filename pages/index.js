@@ -165,7 +165,6 @@ export default function Home() {
                       <div className="howto-img-wrapper">
           <img src="/step-3.png" alt="Save HD MP4" />
         </div>
-      </div>
     </section>
 
 

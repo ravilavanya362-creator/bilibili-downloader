@@ -30,6 +30,7 @@ export default function Layout({ children, title, description }) {
 </Link>
 
 
+
         <nav className="site-nav">
           <Link href="/blog">Blog</Link>
           <Link href="/about">About</Link>

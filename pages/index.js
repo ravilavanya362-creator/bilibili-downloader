@@ -1,215 +1,206 @@
-import { useState } from "react";
-import Link from "next/link";
-import Layout from "../components/Layout";
-import { LightningIcon, LinkStepIcon, PasteStepIcon, DownloadStepIcon, ChevronIcon } from "../components/Icons";
-import { getAllPosts } from "../lib/posts";
+import { useState } from 'react';
+import Link from 'next/link';
+import Layout from '../components/Layout';
+import { LightningIcon } from '../components/Icons';
+import posts from '../lib/posts';
 
-const FAQS = [
+const FAQ_ITEMS = [
   {
-    q: "Is Bili Save completely free to use?",
-    a: "Yes. There's no account, no subscription, and no hidden paywall — paste a link and download.",
+    q: "Is Bili Save completely free?",
+    a: "Yes, Bili Save is 100% free with unlimited downloads and no hidden subscription fees."
   },
   {
-    q: "Do I need the bilibili app or a login?",
-    a: "No. Bili Save works entirely in your browser using bilibili's public video info, so you don't need to install anything or sign in.",
+    q: "Do I need to install any software or extensions?",
+    a: "No installations needed. Everything operates directly within your desktop or mobile browser."
   },
   {
-    q: "Which links are supported?",
-    a: "Full bilibili.com video links (bilibili.com/video/BV...) and short b23.tv links both work.",
+    q: "Which Bilibili links are supported?",
+    a: "All standard bilibili.com URLs and b23.tv short links are fully supported."
   },
   {
-    q: "Does this work on mobile?",
-    a: "Yes — Bili Save is built to work smoothly in any mobile browser, no app install required.",
-  },
+    q: "Can I download videos on Android or iPhone?",
+    a: "Yes! Bili Save is completely responsive and works smoothly on iOS Safari, Android Chrome, and any browser."
+  }
 ];
 
-export default function Home({ posts }) {
-  const [url, setUrl] = useState("");
+export default function Home() {
+  const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [result, setResult] = useState(null);
-  const [openFaq, setOpenFaq] = useState(null);
+  const [error, setError] = useState('');
 
-  async function handleSubmit(e) {
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      setUrl(text);
+    } catch (err) {
+      alert("Please allow clipboard permissions or paste manually.");
+    }
+  };
+
+  const handleDownload = async (e) => {
     e.preventDefault();
     if (!url.trim()) return;
 
     setLoading(true);
-    setError("");
+    setError('');
     setResult(null);
 
     try {
-      const res = await fetch("/api/parse", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: url.trim() }),
+      const res = await fetch('/api/parse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
       });
-      const json = await res.json();
-
+      const data = await res.json();
       if (!res.ok) {
-        setError(json.error || "Something went wrong.");
+        setError(data.error || 'Failed to fetch video details.');
       } else {
-        setResult(json);
+        setResult(data);
       }
     } catch (err) {
-      setError("Network error — couldn't reach the server.");
+      setError('Network error. Unable to process download request.');
     } finally {
       setLoading(false);
     }
-  }
-
-  const downloadHref = result
-    ? `/api/download?url=${encodeURIComponent(result.streamUrl)}&filename=${encodeURIComponent(
-        result.title || "video"
-      )}`
-    : null;
+  };
 
   return (
     <Layout>
-      {/* Hero + downloader */}
-      <div className="page">
-        <span className="hero-pill">⚡ 100% Free &amp; Ultra Fast</span>
-        <div className="hero-logo">
-          <LightningIcon size={30} />
-        </div>
-        <h1>Bili Save</h1>
-        <p className="subtitle">
-          Paste a bilibili.com (or b23.tv) video link below to pull down its
-          title, cover, and a direct mp4 download.
-        </p>
+      <div className="container">
+        
+        {/* Step 1, 2, 3: Hero & Header Branding */}
+        <section className="hero-section">
+          <div className="badge-tag">
+            <LightningIcon size={14} /> 100% Free & Ultra Fast
+          </div>
+          <h1 className="hero-title">
+            Bilibili Video <span>Downloader</span>
+          </h1>
+          <p className="hero-desc">
+            Save high-definition MP4 videos directly from Bilibili without logins or watermarks.
+          </p>
 
-        <div className="card">
-          <form className="input-row" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="https://www.bilibili.com/video/BV1xx411c7mD"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
-            <button type="submit" disabled={loading}>
-              {loading ? "Fetching…" : "Fetch"}
+          <form className="input-card" onSubmit={handleDownload}>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Paste Bilibili video link here (e.g. https://bilibili.com/video/...)"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                required
+              />
+              <button type="button" className="paste-btn" onClick={handlePaste}>
+                📋 Paste
+              </button>
+            </div>
+            <button type="submit" className="btn-main" disabled={loading}>
+              {loading ? 'Processing Video...' : 'Download Video (MP4)'}
             </button>
           </form>
 
-          {error && <div className="error">{error}</div>}
+          {error && <p style={{ color: '#ef4444', marginTop: '16px', fontWeight: 600 }}>{error}</p>}
+        </section>
 
-          {result && (
-            <div className="result">
-              {result.cover && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={result.cover} alt={result.title} referrerPolicy="no-referrer" />
-              )}
-              <div className="result-meta">
-                <p className="result-title">{result.title}</p>
-                <p className="result-sub">
-                  {result.owner ? `${result.owner} · ` : ""}
-                  {result.qualityLabel}
-                  {result.sizeBytes
-                    ? ` · ${(result.sizeBytes / 1024 / 1024).toFixed(1)} MB`
-                    : ""}
-                </p>
-                <a className="download-btn" href={downloadHref}>
-                  Download mp4
-                </a>
-              </div>
+        {/* Video Download Result */}
+        {result && (
+          <div className="result-card">
+            <img src={result.cover} alt={result.title} />
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 700 }}>{result.title}</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              Quality: <strong>{result.qualityLabel || 'HD'}</strong> • Duration: {Math.round(result.durationSeconds / 60)} mins
+            </p>
+            <a
+              href={`/api/download?url=${encodeURIComponent(result.streamUrl)}&filename=${encodeURIComponent(result.title)}`}
+              className="btn-download"
+            >
+              💾 Save MP4 File
+            </a>
+          </div>
+        )}
+
+        {/* Step 4: How To Download Section */}
+        <section className="section">
+          <div className="section-header">
+            <h2 className="section-title">How To Download Bilibili Videos</h2>
+            <p style={{ color: 'var(--text-muted)' }}>Get your favorite media saved in 3 simple steps</p>
+          </div>
+
+          <div className="steps-grid">
+            <div className="step-card">
+              <div className="step-num">1</div>
+              <h3 style={{ marginBottom: '8px' }}>Copy Video Link</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+                Open the Bilibili app or web page and copy the URL of the video you want.
+              </p>
             </div>
-          )}
-        </div>
 
-        <p className="footnote">
-          For personal, non-commercial use only. Only download videos you
-          own or have permission to save — respect bilibili's terms of
-          service and the original creator's rights.
-        </p>
+            <div className="step-card">
+              <div className="step-num">2</div>
+              <h3 style={{ marginBottom: '8px' }}>Paste into Bili Save</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+                Paste the URL into the search box above and hit the Download button.
+              </p>
+            </div>
+
+            <div className="step-card">
+              <div className="step-num">3</div>
+              <h3 style={{ marginBottom: '8px' }}>Save HD MP4</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+                Preview your video and tap the Save button to start your high-speed download.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Step 5: Blog Section */}
+        <section className="section">
+          <div className="section-header">
+            <h2 className="section-title">Latest Articles & Guides</h2>
+            <p style={{ color: 'var(--text-muted)' }}>Explore tips on video formats, streaming quality, and tech</p>
+          </div>
+
+          <div className="blog-grid">
+            {posts.slice(0, 3).map((post) => (
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
+                <div className="blog-thumb" style={{ background: post.gradient }}>
+                  {post.emoji}
+                </div>
+                <div className="blog-body">
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{post.date}</span>
+                  <h3 className="blog-title">{post.title}</h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{post.excerpt}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Step 6: FAQs */}
+        <section className="section">
+          <div className="section-header">
+            <h2 className="section-title">Frequently Asked Questions</h2>
+          </div>
+
+          <div style={{ maxWidth: '750px', margin: '0 auto' }}>
+            {FAQ_ITEMS.map((faq, i) => (
+              <div key={i} className="faq-box">
+                <div className="faq-q">{faq.q}</div>
+                <div className="faq-a">{faq.a}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Step 7: About Platform */}
+        <section className="section" style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto' }}>
+          <h2 className="section-title" style={{ marginBottom: '14px' }}>About Bili Save Platform</h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: '1.8' }}>
+            Bili Save is a lightweight, web-first utility engineered to extract stream media directly for personal and non-commercial archival use. Powered by Next.js edge architecture, it requires zero browser add-ons and delivers fast, safe video processing.
+          </p>
+        </section>
+
       </div>
-
-      {/* How it works */}
-      <section className="section">
-        <div className="section-head">
-          <span className="eyebrow">Guide</span>
-          <h2>How to Download</h2>
-        </div>
-        <div className="steps">
-          <div className="step-card">
-            <LinkStepIcon />
-            <div>
-              <span className="step-number">Step 1</span>
-              <h3>Copy the video link</h3>
-              <p>Open the video on bilibili.com or the app, then copy its link from the address bar or Share menu.</p>
-            </div>
-          </div>
-          <div className="step-card">
-            <PasteStepIcon />
-            <div>
-              <span className="step-number">Step 2</span>
-              <h3>Paste it above</h3>
-              <p>Paste the link into the box at the top of this page and tap Fetch.</p>
-            </div>
-          </div>
-          <div className="step-card">
-            <DownloadStepIcon />
-            <div>
-              <span className="step-number">Step 3</span>
-              <h3>Download your mp4</h3>
-              <p>Review the title and cover, then tap Download mp4 to save the file to your device.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Blog preview */}
-      <section className="section">
-        <div className="section-head">
-          <span className="eyebrow">Blog</span>
-          <h2>Latest Articles</h2>
-        </div>
-        <div className="post-grid">
-          {posts.slice(0, 3).map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} className="post-card">
-              <div className="post-thumb" style={{ background: post.gradient }}>
-                {post.emoji}
-              </div>
-              <div className="post-card-body">
-                <span className="post-date">
-                  {new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                </span>
-                <h3>{post.title}</h3>
-                <p>{post.excerpt}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <Link href="/blog" className="view-all-link">
-          View all articles →
-        </Link>
-      </section>
-
-      {/* FAQ */}
-      <section className="section">
-        <div className="section-head">
-          <span className="eyebrow">Help &amp; FAQ</span>
-          <h2>Frequently Asked Questions</h2>
-        </div>
-        <div className="faq-list">
-          {FAQS.map((item, i) => (
-            <div className="faq-item" key={i}>
-              <button
-                className="faq-question"
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-              >
-                {item.q}
-                <ChevronIcon open={openFaq === i} />
-              </button>
-              {openFaq === i && <div className="faq-answer">{item.a}</div>}
-            </div>
-          ))}
-        </div>
-      </section>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  return { props: { posts: getAllPosts() } };
-            }
-                  
+              }

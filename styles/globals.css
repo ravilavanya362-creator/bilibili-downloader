@@ -110,53 +110,37 @@ a {
 }
 
 /* =========================================
-   HERO SECTION & ATTRACTIVE HEADING
+/* =========================================
+   SLEEK BALANCED HERO TITLE
 ========================================= */
-.hero-section {
-  text-align: center;
-  padding: 55px 0 35px;
-}
-
-.badge-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #fff1f2;
-  color: #e11d48;
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  border: 1px solid #ffe4e6;
-}
-
 .hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.3rem, 5.5vw, 3.4rem);
-  font-weight: 900;
-  line-height: 1.18;
-  letter-spacing: -1.4px;
+  font-size: clamp(1.85rem, 4vw, 2.5rem); /* Perfectly balanced, neat & clean size */
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.8px;
   color: #0f172a;
-  margin: 0 auto 16px;
+  margin: 0 auto 12px;
+  max-width: 680px;
 }
 
 .hero-title .title-accent {
   display: inline-block;
-  background: linear-gradient(135deg, #ff0844 0%, #ff5252 50%, #f43f5e 100%);
+  background: linear-gradient(135deg, #ff0844 0%, #ff4e50 60%, #ff6b6b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 900;
+  letter-spacing: -0.6px;
 }
 
 .hero-desc {
   color: var(--text-muted);
-  max-width: 580px;
-  margin: 0 auto 34px;
-  font-size: 1.05rem;
+  max-width: 520px;
+  margin: 0 auto 28px;
+  font-size: 0.98rem;
+  line-height: 1.55;
 }
+
 
 /* =========================================
    INPUT BOX & MINIMAL PASTE BUTTON

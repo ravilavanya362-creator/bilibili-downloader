@@ -55,24 +55,46 @@ a {
 }
 
 .brand {
+/* Premium Professional Brand Name */
+.brand {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+  text-decoration: none;
 }
 
-.brand-icon {
-  background: var(--primary-gradient);
-  color: #fff;
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+.brand-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  display: inline-flex;
+  align-items: center;
 }
+
+.brand-bili {
+  color: #0f172a; /* Deep luxury navy slate */
+}
+
+.brand-save {
+  background: linear-gradient(135deg, #ff0844 0%, #ff4e50 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-left: 3px;
+  position: relative;
+}
+
+.brand-save::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #ff0844;
+  border-radius: 50%;
+  right: -8px;
+  bottom: 6px;
+}
+
 
 .site-nav {
   display: flex;

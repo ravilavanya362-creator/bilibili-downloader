@@ -5,6 +5,20 @@ import { LightningIcon, InstagramIcon, ThreadsIcon, MailIcon } from './Icons';
 const INSTAGRAM_URL = "https://www.instagram.com/_.pavi.rls________?igsi=MXFwdTd0ZTY0am4xbw==";
 const THREADS_URL = "https://www.threads.com/@_.pavi.rls________";
 const SUPPORT_EMAIL = "pavanibevara045@gmail.com";
+const SITE_URL = "https://bilibili-downloader-one.vercel.app";
+const SITE_NAME = "Bili Save";
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: SITE_NAME,
+  url: SITE_URL,
+  applicationCategory: "MultimediaApplication",
+  operatingSystem: "Any",
+  description:
+    "Paste a bilibili.com or b23.tv link and get high quality MP4 downloads free and fast.",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+};
 
 export default function Layout({ children, title, description }) {
   const pageTitle = title ? `${title} — Bili Save` : "Bili Save — High Quality Bilibili Video Downloader";
@@ -16,6 +30,27 @@ export default function Layout({ children, title, description }) {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#ff0844" />
+        <link rel="icon" href="/logo2.png" />
+
+        {/* Open Graph */}
+        <meta property="og:site_name" content={SITE_NAME} key="og:site_name" />
+        <meta property="og:title" content={pageTitle} key="og:title" />
+        <meta property="og:description" content={pageDescription} key="og:description" />
+        <meta property="og:image" content={`${SITE_URL}/logo2.png`} key="og:image" />
+        <meta property="og:type" content="website" key="og:type" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary" key="twitter:card" />
+        <meta name="twitter:title" content={pageTitle} key="twitter:title" />
+        <meta name="twitter:description" content={pageDescription} key="twitter:description" />
+        <meta name="twitter:image" content={`${SITE_URL}/logo2.png`} key="twitter:image" />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
       </Head>
 
       <header className="site-header">
@@ -87,4 +122,5 @@ export default function Layout({ children, title, description }) {
       </footer>
     </>
   );
-}
+  }
+              

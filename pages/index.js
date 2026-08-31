@@ -133,13 +133,11 @@ export default function Home() {
       {/* How To Download Section */}
         <section className="section howto-section">
   <div className="section-header">
-          <div className="section-header">
-        <h2 className="howto-main-title">
-          How to Download Bilibili <span className="highlight-text">Videos?</span>
-        </h2>
-        <p className="howto-subtitle">Download any Bilibili video in 3 simple steps</p>
-      </div>
-
+    <h2 className="howto-main-title">
+      How to Download Bilibili <span className="highlight-text">Videos?</span>
+    </h2>
+    <p className="howto-subtitle">Download any Bilibili video in 3 simple steps</p>
+  </div>
 
 
           <div className="howto-container">
@@ -162,11 +160,10 @@ export default function Home() {
               <p className="howto-step-desc">
                 Return to Bili Save, paste your link in the input box above, and tap <span className="highlight-text">Download</span>.
               </p>
-                      <div className="howto-img-wrapper">
-          <img src="/step-3.png" alt="Save HD MP4" />
-        </div>
-    </section>
-
+              <div className="howto-img-wrapper">
+                <img src="/step-2.png" alt="Paste link into Bili Save" />
+              </div>
+            </div>
 
             {/* Step 3 */}
             <div className="howto-card">

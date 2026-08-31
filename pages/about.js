@@ -11,7 +11,7 @@ export default function About() {
         <h1>About This Project</h1>
 
         <p>
-          This site started as a small weekend project: a way to pull a
+          Bili Save started as a small weekend project: a way to pull a
           quick mp4 copy of a bilibili video without installing desktop
           software or wrestling with browser extensions. It's built with
           Next.js, runs entirely in the browser plus a couple of lightweight
@@ -49,4 +49,5 @@ export default function About() {
       </div>
     </Layout>
   );
-            }
+}
+

@@ -70,43 +70,46 @@ export default function Home() {
       <div className="container">
         
         {/* Hero Section */}
-        <section className="hero-section">
-          <div className="badge-tag">
-            <LightningIcon size={14} /> 100% Free &amp; Ultra Fast
-          </div>
-          
-          <h1 className="hero-title">
-            Bilibili Video <span className="title-accent">Downloader</span>
-          </h1>
-          
-          <p className="hero-desc">
-            Save high-definition MP4 videos directly from Bilibili without logins or watermarks.
-          </p>
+<section className="hero-section">
+  <div className="badge-tag">
+    <LightningIcon size={13} />
+    <span>100% Free &amp; Ultra Fast</span>
+  </div>
+  
+  <h1 className="hero-title">
+    Bilibili Video <span className="title-accent">Downloader</span>
+  </h1>
+  
+  <p className="hero-desc">
+    Paste your video link below to save high quality MP4 files with no watermark instantly.
+  </p>
 
-          <form className="input-card" onSubmit={handleDownload}>
-            <div className="input-group">
-              <input
-                type="text"
-                placeholder="Paste Bilibili video link here (e.g. https://bilibili.com/video/...)"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                required
-              />
-              <button type="button" className="paste-btn" onClick={handlePaste}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-                Paste
-              </button>
-            </div>
-            <button type="submit" className="btn-main" disabled={loading}>
-              {loading ? 'Processing Video...' : 'Download Video (MP4)'}
-            </button>
-          </form>
+  <form className="input-card" onSubmit={handleDownload}>
+    <div className="input-group">
+      <input
+        type="text"
+        placeholder="Paste Bilibili link here (e.g. bilibili.com/video/...)"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        required
+      />
+      <button type="button" className="paste-btn" onClick={handlePaste}>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Paste
+      </button>
+    </div>
 
-          {error && <p style={{ color: '#ef4444', marginTop: '16px', fontWeight: 600 }}>{error}</p>}
-        </section>
+    <button type="submit" className="btn-main" disabled={loading}>
+      {loading ? 'Processing Video...' : 'Download Video (MP4)'}
+    </button>
+  </form>
+
+  {error && <p style={{ color: '#ef4444', marginTop: '14px', fontWeight: 600, fontSize: '0.9rem' }}>{error}</p>}
+</section>
+
 
         {/* Video Download Result */}
         {result && (

@@ -80,6 +80,7 @@ export default function Home() {
   Bilibili Video <span className="title-accent">Downloader</span>
 </h1>
 
+
   
   <p className="hero-desc">
     Paste your video link below to save high quality MP4 files with no watermark instantly.
@@ -134,9 +135,10 @@ export default function Home() {
           <div className="section-header">
             <h2 className="howto-main-title">
               How to Download Bilibili <br /> Videos?
-            </h2>
-            <p className="howto-subtitle">Download any Bilibili video in 3 simple steps</p>
-          </div>
+            <h2 className="howto-main-title">
+  How to Download Bilibili <span className="highlight-text">Videos?</span>
+</h2>
+
 
           <div className="howto-container">
             {/* Step 1 */}

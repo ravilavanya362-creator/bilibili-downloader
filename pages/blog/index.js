@@ -19,16 +19,21 @@ export default function BlogIndex({ posts }) {
         <div className="post-list">
           {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`} className="post-card">
-              <span className="post-date">
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
-              <h2>{post.title}</h2>
-              <p>{post.excerpt}</p>
-              <span className="post-read-more">Read article →</span>
+              <div className="post-thumb" style={{ background: post.gradient }}>
+                {post.emoji}
+              </div>
+              <div className="post-card-body">
+                <span className="post-date">
+                  {new Date(post.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+                <h2>{post.title}</h2>
+                <p>{post.excerpt}</p>
+                <span className="post-read-more">Read article →</span>
+              </div>
             </Link>
           ))}
         </div>
@@ -39,4 +44,4 @@ export default function BlogIndex({ posts }) {
 
 export async function getStaticProps() {
   return { props: { posts: getAllPosts() } };
-            }
+}

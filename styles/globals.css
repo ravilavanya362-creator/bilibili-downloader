@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800;900&display=swap');
+
 :root {
   --bg-main: #f8fafc;
   --bg-card: #ffffff;
@@ -12,7 +14,7 @@
   --shadow-lg: 0 20px 40px rgba(255, 75, 43, 0.15);
   --radius-lg: 20px;
   --radius-md: 12px;
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 * {
@@ -55,12 +57,21 @@ a {
 }
 
 .brand {
-/* Premium Professional Brand Name */
-.brand {
   display: flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
+}
+
+.brand-icon {
+  background: var(--primary-gradient);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
 }
 
 .brand-text {
@@ -73,28 +84,15 @@ a {
 }
 
 .brand-bili {
-  color: #0f172a; /* Deep luxury navy slate */
+  color: #0f172a;
 }
 
 .brand-save {
   background: linear-gradient(135deg, #ff0844 0%, #ff4e50 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-left: 3px;
-  position: relative;
+  margin-left: 4px;
 }
-
-.brand-save::after {
-  content: '';
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  background: #ff0844;
-  border-radius: 50%;
-  right: -8px;
-  bottom: 6px;
-}
-
 
 .site-nav {
   display: flex;
@@ -127,29 +125,25 @@ a {
   letter-spacing: 0.5px;
   text-transform: uppercase;
   margin-bottom: 18px;
-  box-shadow: 0 2px 8px rgba(255, 51, 102, 0.08);
 }
 
 .hero-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-size: 2.5rem;
   font-weight: 900;
-  line-height: 1.15;
-  letter-spacing: -1.2px;
-  color: #0f172a; /* Deep luxury navy slate */
+  line-height: 1.2;
+  letter-spacing: -1px;
+  color: #0f172a;
   margin: 12px auto 14px;
   text-align: center;
 }
 
 .hero-title .gradient-text {
   display: inline-block;
-  background: linear-gradient(135deg, #ff0844 0%, #ff4e50 50%, #f43f5e 100%);
+  background: linear-gradient(135deg, #ff0844 0%, #ff4e50 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 10px 25px rgba(255, 8, 68, 0.15);
-  font-weight: 900;
 }
-
 
 .hero-desc {
   color: var(--text-muted);
@@ -158,7 +152,7 @@ a {
   font-size: 1.05rem;
 }
 
-/* Download Input Box */
+/* Input Card */
 .input-card {
   background: var(--bg-card);
   padding: 10px;
@@ -197,9 +191,6 @@ a {
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .btn-main {
@@ -212,46 +203,9 @@ a {
   font-size: 1.1rem;
   cursor: pointer;
   box-shadow: var(--shadow-lg);
-  transition: transform 0.15s ease;
 }
 
-.btn-main:active {
-  transform: scale(0.98);
-}
-
-/* Result Card */
-.result-card {
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border);
-  margin: 30px auto;
-  max-width: 650px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.result-card img {
-  width: 100%;
-  border-radius: var(--radius-md);
-  max-height: 320px;
-  object-fit: cover;
-}
-
-.btn-download {
-  background: var(--accent-green);
-  color: white;
-  text-align: center;
-  padding: 14px;
-  border-radius: var(--radius-md);
-  font-weight: 700;
-  font-size: 1.05rem;
-  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.25);
-}
-
-/* Steps Section */
+/* Sections */
 .section {
   padding: 60px 0;
 }
@@ -264,9 +218,10 @@ a {
 .section-title {
   font-size: 1.9rem;
   font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
-.steps-grid {
+.steps-grid, .blog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
@@ -290,15 +245,7 @@ a {
   display: grid;
   place-items: center;
   font-weight: 800;
-  font-size: 1.1rem;
   margin: 0 auto 16px;
-}
-
-/* Blogs Section */
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
 }
 
 .blog-card {
@@ -307,8 +254,6 @@ a {
   overflow: hidden;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
 }
 
 .blog-thumb {
@@ -320,17 +265,8 @@ a {
 
 .blog-body {
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
-.blog-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
-/* FAQs */
 .faq-box {
   background: var(--bg-card);
   border-radius: var(--radius-md);
@@ -341,7 +277,6 @@ a {
 
 .faq-q {
   font-weight: 700;
-  font-size: 1.05rem;
   margin-bottom: 6px;
 }
 
@@ -350,9 +285,8 @@ a {
   font-size: 0.95rem;
 }
 
-/* Creator Card */
 .creator-box {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: #0f172a;
   color: white;
   border-radius: var(--radius-lg);
   padding: 40px 24px;
@@ -370,7 +304,6 @@ a {
 
 .social-btn {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
   padding: 10px 20px;
   border-radius: 50px;
   display: flex;
@@ -378,18 +311,12 @@ a {
   gap: 8px;
   font-weight: 600;
   font-size: 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.social-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-/* Footer */
 .site-footer {
   background: #ffffff;
   border-top: 1px solid var(--border);
-  padding: 50px 0 20px;
+  padding: 40px 0 20px;
   margin-top: 60px;
 }
 
@@ -404,15 +331,8 @@ a {
   margin-bottom: 24px;
 }
 
-.footer-nav a:hover {
-  color: #ff416c;
-}
-
 .footer-copy {
   text-align: center;
   color: var(--text-muted);
   font-size: 0.85rem;
-  border-top: 1px solid var(--border);
-  padding-top: 20px;
 }
-

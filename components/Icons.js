@@ -99,6 +99,49 @@ export function MailIcon({ size = 20 }) {
   );
 }
 
+export function ShieldIcon({ size = 22 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12 3l7 3v5c0 4.5-2.9 8.3-7 10-4.1-1.7-7-5.5-7-10V6l7-3Z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <path d="M9 12.2l2 2 4-4.2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function HDIcon({ size = 22 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="6" width="18" height="12" rx="3" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M7 9.5v5M10.2 9.5v5M7 12h3.2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M14 9.5h1.6a1.6 1.6 0 0 1 1.6 1.6v1.8a1.6 1.6 0 0 1-1.6 1.6H14v-5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ClockIcon({ size = 22 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M12 7v5l3.2 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function DeviceIcon({ size = 22 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="4" width="12" height="16" rx="2" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M8 17h2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="M17 8h4v9a2 2 0 0 1-2 2h-2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function ChevronIcon({ open }) {
   return (
     <svg
@@ -115,4 +158,5 @@ export function ChevronIcon({ open }) {
     </svg>
   );
     }
+
     

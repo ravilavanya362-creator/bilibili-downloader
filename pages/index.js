@@ -135,7 +135,7 @@ export default function Home() {
           <div className="section-header">
             <h2 className="howto-main-title">
               How to Download Bilibili <br /> Videos?
-            <h2 className="howto-main-title">
+          <h2 className="howto-main-title">
   How to Download Bilibili <span className="highlight-text">Videos?</span>
 </h2>
 

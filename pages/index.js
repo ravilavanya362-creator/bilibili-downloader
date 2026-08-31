@@ -133,11 +133,13 @@ export default function Home() {
       {/* How To Download Section */}
         <section className="section howto-section">
   <div className="section-header">
-    <h2 className="howto-main-title">
-      How to Download Bilibili <span className="highlight-text">Videos?</span>
-    </h2>
-    <p className="howto-subtitle">Download any Bilibili video in 3 simple steps</p>
-  </div>
+          <div className="section-header">
+        <h2 className="howto-main-title">
+          How to Download Bilibili <span className="highlight-text">Videos?</span>
+        </h2>
+        <p className="howto-subtitle">Download any Bilibili video in 3 simple steps</p>
+      </div>
+
 
 
           <div className="howto-container">

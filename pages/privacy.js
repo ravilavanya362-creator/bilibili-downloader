@@ -109,4 +109,4 @@ export default function Privacy() {
       </div>
     </Layout>
   );
-            }
+}

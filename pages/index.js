@@ -76,9 +76,10 @@ export default function Home() {
     <span>100% Free &amp; Ultra Fast</span>
   </div>
   
-  <h1 className="hero-title">
-    Bilibili Video <span className="title-accent">Downloader</span>
-  </h1>
+<h1 className="hero-title">
+  Bilibili Video <span className="title-accent">Downloader</span>
+</h1>
+
   
   <p className="hero-desc">
     Paste your video link below to save high quality MP4 files with no watermark instantly.

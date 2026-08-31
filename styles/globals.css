@@ -57,42 +57,60 @@ a {
 }
 
 .brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .brand-icon {
-  background: var(--primary-gradient);
-  color: #fff;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff0844 0%, #ff4e50 100%);
   display: grid;
   place-items: center;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+  color: #ffffff;
+  box-shadow: 0 8px 18px -4px rgba(255, 8, 68, 0.45);
 }
 
-.brand-text {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+.brand-logo-text {
+  display: flex;
+  align-items: baseline;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   font-size: 1.55rem;
-  font-weight: 900;
-  letter-spacing: -0.8px;
-  display: inline-flex;
-  align-items: center;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  line-height: 1;
 }
 
-.brand-bili {
+.brand-name-main {
   color: #0f172a;
+  letter-spacing: -0.8px;
 }
 
-.brand-save {
+.brand-name-accent {
   background: linear-gradient(135deg, #ff0844 0%, #ff4e50 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-left: 4px;
+  font-weight: 900;
+  margin-left: 3px;
+  position: relative;
 }
+
+.brand-name-accent::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #ff0844;
+  border-radius: 50%;
+  margin-left: 2px;
+  vertical-align: baseline;
+  box-shadow: 0 2px 6px rgba(255, 8, 68, 0.4);
+}
+
 
 .site-nav {
   display: flex;

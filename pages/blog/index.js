@@ -45,3 +45,4 @@ export default function BlogIndex({ posts }) {
 export async function getStaticProps() {
   return { props: { posts: getAllPosts() } };
 }
+

@@ -1,5 +1,32 @@
 import { useState } from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
 import Layout from '../components/Layout';
+import { getAllPosts } from '../lib/posts';
+import { ShieldIcon, HDIcon, ClockIcon, DeviceIcon, ChevronIcon } from '../components/Icons';
+
+const FAQS = [
+  {
+    q: 'Is Bili Save free to use?',
+    a: 'Yes. There is no account, no subscription, and no limit on how many links you can paste — every download is free.',
+  },
+  {
+    q: 'Do I need to install an app or browser extension?',
+    a: 'No. Everything runs in the browser tab you already have open, on desktop or mobile.',
+  },
+  {
+    q: 'Does this work with shortened b23.tv links?',
+    a: 'Yes, both full bilibili.com/video/ links and shortened b23.tv links are supported.',
+  },
+  {
+    q: 'Why is the video quality capped around 720p?',
+    a: 'Without a logged-in Bilibili session, the public stream endpoints only expose lower resolutions. Logged-in, higher-quality streams require an account cookie that this tool does not collect.',
+  },
+  {
+    q: 'Is it safe to download Bilibili videos this way?',
+    a: 'The tool only reads the same public metadata your browser already loads to play the video — it does not ask for a Bilibili login or any personal information.',
+  },
+];
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -14,6 +41,20 @@ export default function Home() {
     } catch (err) {
       console.error('Failed to read clipboard');
     }
+  };
+
+  const [openFaq, setOpenFaq] = useState(null);
+  const allPosts = getAllPosts();
+  const featuredPost = allPosts.find((p) => p.featured) || allPosts[0];
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
   };
 
   const handleDownload = async (e) => {
@@ -42,8 +83,22 @@ export default function Home() {
 
   return (
     <Layout title="Bilibili Video Downloader - No Watermark" description="Download high quality Bilibili videos instantly without watermark.">
-      <div className="container">
-        
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      </Head>
+      <div className="container" id="top">
+
+        {/* Trust Bar */}
+        <div className="trust-bar">
+          <div className="trust-item"><ShieldIcon size={18} /> No login required</div>
+          <div className="trust-item"><HDIcon size={18} /> HD MP4 output</div>
+          <div className="trust-item"><ClockIcon size={18} /> Ready in seconds</div>
+          <div className="trust-item"><DeviceIcon size={18} /> Works on any device</div>
+        </div>
+
         {/* Hero Section */}
         <section className="hero-section">
           <div className="badge-tag">
@@ -144,7 +199,75 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Featured Article Section */}
+        {featuredPost && (
+          <section className="featured-article-section">
+            <div className="section-header" style={{ textAlign: 'center', marginBottom: '30px' }}>
+              <div className="eyebrow eyebrow-center">From the blog</div>
+              <h2 className="howto-main-title">
+                The Complete <span className="highlight-text">Download Guide</span>
+              </h2>
+              <p className="howto-subtitle">Everything you need to know, in one detailed read</p>
+            </div>
+
+            <Link href={`/blog/${featuredPost.slug}`} className="featured-article-card">
+              <div className="featured-article-thumb" style={{ background: featuredPost.gradient }}>
+                <span>{featuredPost.emoji}</span>
+              </div>
+              <div className="featured-article-body">
+                <span className="featured-badge">Most Popular Guide</span>
+                <h3>{featuredPost.title}</h3>
+                <p>{featuredPost.excerpt}</p>
+                <div className="article-meta-row">
+                  <span className="post-date">
+                    {new Date(featuredPost.date).toLocaleDateString('en-US', {
+                      year: 'numeric', month: 'long', day: 'numeric',
+                    })}
+                  </span>
+                  {featuredPost.readTime && (
+                    <>
+                      <span className="meta-dot">•</span>
+                      <span className="post-date">{featuredPost.readTime}</span>
+                    </>
+                  )}
+                </div>
+                <span className="post-read-more">Read the full guide →</span>
+              </div>
+            </Link>
+
+            <div className="more-articles-link">
+              <Link href="/blog">Browse all articles →</Link>
+            </div>
+          </section>
+        )}
+
+        {/* FAQ Section */}
+        <section className="faq-section">
+          <div className="section-header" style={{ textAlign: 'center', marginBottom: '30px' }}>
+            <h2 className="howto-main-title">Frequently Asked <span className="highlight-text">Questions</span></h2>
+            <p className="howto-subtitle">Quick answers about using the downloader</p>
+          </div>
+
+          <div className="faq-list">
+            {FAQS.map((faq, i) => (
+              <div className={`faq-item ${openFaq === i ? 'faq-open' : ''}`} key={i}>
+                <button
+                  type="button"
+                  className="faq-question"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  aria-expanded={openFaq === i}
+                >
+                  <span>{faq.q}</span>
+                  <ChevronIcon open={openFaq === i} />
+                </button>
+                {openFaq === i && <p className="faq-answer">{faq.a}</p>}
+              </div>
+            ))}
+          </div>
+        </section>
+
       </div>
     </Layout>
   );
-}
+              }
+          

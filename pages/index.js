@@ -69,49 +69,45 @@ export default function Home() {
     <Layout>
       <div className="container">
         
-        {/* Step 1, 2, 3: Hero & Header Branding */}
+        {/* Hero Section */}
         <section className="hero-section">
-        <section className="hero-section">
-  <div className="badge-tag">
-    <LightningIcon size={14} /> 100% Free &amp; Ultra Fast
-  </div>
-  
-  {/* Attractive Premium Heading */}
-<h1 className="hero-title">
+          <div className="badge-tag">
+            <LightningIcon size={14} /> 100% Free &amp; Ultra Fast
+          </div>
+          
+          <h1 className="hero-title">
   Bilibili Video <span className="title-accent">Downloader</span>
 </h1>
 
-  
-  <p className="hero-desc">
-    Paste any video link to save ultra-fast, high quality MP4 files with no watermark.
-  </p>
+          
+          <p className="hero-desc">
+            Save high-definition MP4 videos directly from Bilibili without logins or watermarks.
+          </p>
 
-  <form className="input-card" onSubmit={handleDownload}>
-    <div className="input-group">
-      <input
-        type="text"
-        placeholder="Paste Bilibili link here (e.g. bilibili.com/video/...)"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        required
-      />
-      {/* Sleek Minimal Paste Button */}
-      <button type="button" className="paste-btn" onClick={handlePaste}>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-        </svg>
-        Paste
-      </button>
-    </div>
+          <form className="input-card" onSubmit={handleDownload}>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Paste Bilibili video link here (e.g. https://bilibili.com/video/...)"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                required
+              />
+              <button type="button" className="paste-btn" onClick={handlePaste}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Paste
+              </button>
+            </div>
+            <button type="submit" className="btn-main" disabled={loading}>
+              {loading ? 'Processing Video...' : 'Download Video (MP4)'}
+            </button>
+          </form>
 
-    <button type="submit" className="btn-main" disabled={loading}>
-      {loading ? 'Processing Video...' : 'Download Video (MP4)'}
-    </button>
-  </form>
-
-  {error && <p style={{ color: '#ef4444', marginTop: '16px', fontWeight: 600 }}>{error}</p>}
-</section>
+          {error && <p style={{ color: '#ef4444', marginTop: '16px', fontWeight: 600 }}>{error}</p>}
+        </section>
 
         {/* Video Download Result */}
         {result && (
@@ -130,7 +126,7 @@ export default function Home() {
           </div>
         )}
 
-        {/* Step 4: How To Download Section */}
+        {/* How To Download Section */}
         <section className="section">
           <div className="section-header">
             <h2 className="section-title">How To Download Bilibili Videos</h2>
@@ -164,15 +160,15 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Step 5: Blog Section */}
+        {/* Blog Section */}
         <section className="section">
           <div className="section-header">
-            <h2 className="section-title">Latest Articles & Guides</h2>
+            <h2 className="section-title">Latest Articles &amp; Guides</h2>
             <p style={{ color: 'var(--text-muted)' }}>Explore tips on video formats, streaming quality, and tech</p>
           </div>
 
           <div className="blog-grid">
-            {posts.slice(0, 3).map((post) => (
+            {posts && posts.slice(0, 3).map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
                 <div className="blog-thumb" style={{ background: post.gradient }}>
                   {post.emoji}
@@ -187,7 +183,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Step 6: FAQs */}
+        {/* FAQs */}
         <section className="section">
           <div className="section-header">
             <h2 className="section-title">Frequently Asked Questions</h2>
@@ -203,7 +199,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Step 7: About Platform */}
+        {/* About Platform */}
         <section className="section" style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto' }}>
           <h2 className="section-title" style={{ marginBottom: '14px' }}>About Bili Save Platform</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: '1.8' }}>

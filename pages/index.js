@@ -162,10 +162,12 @@ export default function Home() {
               <p className="howto-step-desc">
                 Return to Bili Save, paste your link in the input box above, and tap <span className="highlight-text">Download</span>.
               </p>
-              <div className="howto-img-wrapper">
-                <img src="/step-2.png" alt="Paste link into Bili Save" />
-              </div>
-            </div>
+                      <div className="howto-img-wrapper">
+          <img src="/step-3.png" alt="Save HD MP4" />
+        </div>
+      </div>
+    </section>
+
 
             {/* Step 3 */}
             <div className="howto-card">

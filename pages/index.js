@@ -128,7 +128,7 @@ export default function Home() {
           </div>
         )}
 
-                {/* How To Download Section with Screenshots */}
+                        {/* How To Download Section */}
         <section className="section howto-section">
           <div className="section-header">
             <h2 className="howto-main-title">

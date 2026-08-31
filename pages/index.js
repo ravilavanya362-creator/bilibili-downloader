@@ -75,8 +75,9 @@ export default function Home() {
             <LightningIcon size={14} /> 100% Free & Ultra Fast
           </div>
           <h1 className="hero-title">
-            Bilibili Video <span>Downloader</span>
-          </h1>
+  Bilibili Video <span className="gradient-text">Downloader</span>
+</h1>
+
           <p className="hero-desc">
             Save high-definition MP4 videos directly from Bilibili without logins or watermarks.
           </p>

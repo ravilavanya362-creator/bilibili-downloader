@@ -128,36 +128,50 @@ export default function Home() {
           </div>
         )}
 
-        {/* How To Download Section */}
-        <section className="section">
+                {/* How To Download Section with Screenshots */}
+        <section className="section howto-section">
           <div className="section-header">
-            <h2 className="section-title">How To Download Bilibili Videos</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Get your favorite media saved in 3 simple steps</p>
+            <h2 className="howto-main-title">
+              How to Download Bilibili <br /> Videos?
+            </h2>
+            <p className="howto-subtitle">Download any Bilibili video in 3 simple steps</p>
           </div>
 
-          <div className="steps-grid">
-            <div className="step-card">
-              <div className="step-num">1</div>
-              <h3 style={{ marginBottom: '8px' }}>Copy Video Link</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-                Open the Bilibili app or web page and copy the URL of the video you want.
+          <div className="howto-container">
+            {/* Step 1 */}
+            <div className="howto-card">
+              <div className="howto-badge">1</div>
+              <h3 className="howto-step-title">Copy the video link</h3>
+              <p className="howto-step-desc">
+                On Bilibili app or web, open the video, tap Share, then choose <span className="highlight-text">Copy link</span>.
               </p>
+              <div className="howto-img-wrapper">
+                <img src="/step-1.png" alt="Copy Bilibili Link" />
+              </div>
             </div>
 
-            <div className="step-card">
-              <div className="step-num">2</div>
-              <h3 style={{ marginBottom: '8px' }}>Paste into Bili Save</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-                Paste the URL into the search box above and hit the Download button.
+            {/* Step 2 */}
+            <div className="howto-card">
+              <div className="howto-badge">2</div>
+              <h3 className="howto-step-title">Paste into Bili Save</h3>
+              <p className="howto-step-desc">
+                Return to Bili Save, paste your link in the input box above, and tap <span className="highlight-text">Download</span>.
               </p>
+              <div className="howto-img-wrapper">
+                <img src="/step-2.png" alt="Paste link into Bili Save" />
+              </div>
             </div>
 
-            <div className="step-card">
-              <div className="step-num">3</div>
-              <h3 style={{ marginBottom: '8px' }}>Save HD MP4</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-                Preview your video and tap the Save button to start your high-speed download.
+            {/* Step 3 */}
+            <div className="howto-card">
+              <div className="howto-badge">3</div>
+              <h3 className="howto-step-title">Save HD MP4 Video</h3>
+              <p className="howto-step-desc">
+                Preview your media and click <span className="highlight-text">Save MP4</span> to store it directly to your device.
               </p>
+              <div className="howto-img-wrapper">
+                <img src="/step-3.png" alt="Save HD MP4" />
+              </div>
             </div>
           </div>
         </section>

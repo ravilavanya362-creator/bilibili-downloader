@@ -19,21 +19,21 @@ export default function Layout({ children, title, description }) {
       </Head>
 
       <header className="site-header">
-  <Link href="/" className="brand">
+  <Link href="/blog" className="nav-link">Blog</Link>
+  
+  <Link href="/" className="brand-centered">
     <div className="brand-icon">
-      <LightningIcon size={20} />
+      <LightningIcon size={18} />
     </div>
     <div className="brand-logo-text">
       <span className="brand-name-main">Bili</span>
       <span className="brand-name-accent">Save</span>
     </div>
   </Link>
-  <nav className="site-nav">
-    <Link href="/blog">Blog</Link>
-    <Link href="/about">About</Link>
-    <Link href="/contact">Contact</Link>
-  </nav>
+
+  <Link href="/about" className="nav-link">About</Link>
 </header>
+
 
 
       <main>{children}</main>

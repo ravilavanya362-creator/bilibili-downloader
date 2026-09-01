@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import { LightningIcon, InstagramIcon, ThreadsIcon, MailIcon } from './Icons';
+import { InstagramIcon, ThreadsIcon, MailIcon } from './Icons';
 
 const INSTAGRAM_URL = "https://www.instagram.com/_.pavi.rls________?igsi=MXFwdTd0ZTY0am4xbw==";
 const THREADS_URL = "https://www.threads.com/@_.pavi.rls________";
@@ -69,7 +69,7 @@ export default function Layout({ children, title, description }) {
 
       <main>{children}</main>
 
-      {/* ReelsDownloader-style White Theme Creator / Connect Section */}
+      {/* ReelsDownloader Style Creator / Connect Section */}
       <div className="container" style={{ marginTop: '40px', marginBottom: '20px' }}>
         <div style={{
           background: '#ffffff',
@@ -179,19 +179,20 @@ export default function Layout({ children, title, description }) {
         </div>
       </div>
 
-      {/* Footer Section */}
+      {/* Footer Section with All Legal Links */}
       <footer className="site-footer">
         <div className="container">
           <div className="footer-nav">
             <Link href="/about">About Us</Link>
             <Link href="/contact">Contact</Link>
             <Link href="/privacy">Privacy Policy</Link>
-            <Link href="/terms">Terms</Link>
-            <Link href="/copyright">DMCA</Link>
+            <Link href="/terms">Terms of Service</Link>
+            <Link href="/copyright">DMCA Policy</Link>
+            <Link href="/disclaimer">Disclaimer</Link>
           </div>
           <div className="footer-copy">
             <p style={{ fontSize: '0.85rem', color: '#64748b', lineHeight: 1.6 }}>
-              Disclaimer: Bili Save is not affiliated with Bilibili. We do not host any media on our servers; all files are fetched directly from publicly available third-party sources.
+              Disclaimer: Bili Save is not affiliated with, endorsed, or sponsored by Bilibili. We do not host any media on our servers; all files are fetched directly from publicly available third-party sources.
             </p>
             <p style={{ marginTop: '12px', fontSize: '0.85rem', color: '#475569', fontWeight: 600 }}>
               © {new Date().getFullYear()} Bili Save by Dharshan Studio. All rights reserved.
@@ -201,4 +202,5 @@ export default function Layout({ children, title, description }) {
       </footer>
     </>
   );
-}
+  }
+                

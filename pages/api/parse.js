@@ -28,6 +28,25 @@ function extractIds(rawUrl) {
   };
 }
 
+async function safeJson(res, label) {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    // Bilibili didn't return JSON at all — usually means it detected the
+    // request as automated (anti-bot / risk control) and sent back an
+    // HTML captcha/block page instead. This is very common when the
+    // request comes from a datacenter IP (Vercel, AWS, etc).
+    console.error(
+      `[parse] ${label} returned non-JSON (status ${res.status}):`,
+      text.slice(0, 300)
+    );
+    throw new Error(
+      `Bilibili blocked this request (${label} returned ${res.status} non-JSON). This usually happens when Bilibili's anti-bot system flags the server's IP address — common on serverless hosts. Try again later, or run this from a residential IP / with a proxy.`
+    );
+  }
+}
+
 async function resolveShortLink(url) {
   // b23.tv short links redirect to the full bilibili.com URL.
   if (!/b23\.tv/.test(url)) return url;
@@ -66,7 +85,7 @@ export default async function handler(req, res) {
       `https://api.bilibili.com/x/web-interface/view?${viewQuery}`,
       { headers: BILI_HEADERS }
     );
-    const viewJson = await viewRes.json();
+    const viewJson = await safeJson(viewRes, "view API");
 
     if (viewJson.code !== 0) {
       return res.status(502).json({
@@ -91,7 +110,7 @@ export default async function handler(req, res) {
       `https://api.bilibili.com/x/player/playurl?${playQuery.toString()}`,
       { headers: BILI_HEADERS }
     );
-    const playJson = await playRes.json();
+    const playJson = await safeJson(playRes, "playurl API");
 
     if (playJson.code !== 0 || !playJson.data?.durl?.length) {
       return res.status(502).json({
@@ -105,18 +124,23 @@ export default async function handler(req, res) {
     return res.status(200).json({
       title: data.title,
       cover: data.pic,
+      thumbnail: data.pic, // alias — frontend reads `thumbnail`
       owner: data.owner?.name,
       durationSeconds: data.duration,
       qualityLabel:
         playJson.data.accept_description?.[0] || `qn ${playJson.data.quality}`,
       streamUrl: durl.url,
+      downloadUrl: `/api/download?url=${encodeURIComponent(
+        durl.url
+      )}&filename=${encodeURIComponent(data.title || "video")}`, // alias — frontend reads `downloadUrl`, and this routes through the proxy so the Referer header is set correctly
       sizeBytes: durl.size,
       bvid: data.bvid,
       cid,
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "Unexpected server error." });
+    return res
+      .status(500)
+      .json({ error: err.message || "Unexpected server error." });
   }
 }
-

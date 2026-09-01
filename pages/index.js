@@ -109,9 +109,9 @@ export default function Home({ allPosts }) {
         </div>
       </section>
 
-      {/* How to Download Section (Texts Only - No Images) */}
+      {/* How to Download Section (Texts Only) */}
       <section className="howto-section" style={{ paddingBottom: '30px' }}>
-        <div className="container">
+        <div className="container" style={{ maxWidth: '920px' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div className="eyebrow" style={{ background: 'rgba(255, 8, 68, 0.08)', color: '#ff0844', border: '1px solid rgba(255, 8, 68, 0.15)' }}>
               SIMPLE STEPS
@@ -120,7 +120,7 @@ export default function Home({ allPosts }) {
             <p className="howto-subtitle">Follow these 3 easy steps to save any video instantly.</p>
           </div>
 
-          <div className="howto-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', maxWidth: '920px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
             
             <div className="howto-card" style={{ padding: '32px 24px', alignItems: 'flex-start', textAlign: 'left' }}>
               <div className="howto-badge" style={{ marginBottom: '14px' }}>1</div>
@@ -150,7 +150,7 @@ export default function Home({ allPosts }) {
         </div>
       </section>
 
-      {/* All Articles / Blog Section on Homepage */}
+      {/* All Articles / Blog Section on Homepage - Perfectly Grid Fitted */}
       <section className="featured-article-section" style={{ padding: '20px 16px 70px' }}>
         <div className="container" style={{ maxWidth: '920px' }}>
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
@@ -161,7 +161,7 @@ export default function Home({ allPosts }) {
             <p className="howto-subtitle">Everything you need to know about video streaming and formats.</p>
           </div>
 
-          {/* Grid of all articles */}
+          {/* Grid layout ensuring all posts display neatly side-by-side */}
           <div className="post-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
             {allPosts.map((post, index) => {
               const gradients = [
@@ -246,7 +246,7 @@ export default function Home({ allPosts }) {
 
       {/* FAQ Section */}
       <section className="faq-section">
-        <div className="container">
+        <div className="container" style={{ maxWidth: '920px' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div className="eyebrow" style={{ background: 'rgba(255, 8, 68, 0.08)', color: '#ff0844', border: '1px solid rgba(255, 8, 68, 0.15)' }}>
               HELP CENTER
@@ -301,4 +301,5 @@ export async function getStaticProps() {
       allPosts,
     },
   };
-}
+                  }
+                  

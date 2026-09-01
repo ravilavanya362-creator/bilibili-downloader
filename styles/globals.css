@@ -487,10 +487,100 @@ a {
 
 .post-thumb {
   height: 120px;
+}
+
+/* Premium gradient thumb visual: shared by post cards, featured card,
+   and single-article header. Adds a soft glow/pattern behind a glassy
+   icon badge + category tag, instead of a flat emoji-on-color block. */
+.thumb-visual {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.thumb-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 100% 100%, rgba(255, 255, 255, 0.22), transparent 60%),
+    radial-gradient(80% 80% at 0% 0%, rgba(0, 0, 0, 0.25), transparent 70%);
+  pointer-events: none;
+}
+
+.thumb-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.4px);
+  background-size: 16px 16px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.thumb-tag {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  max-width: 65%;
+}
+
+.thumb-icon-badge {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.4rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.thumb-icon-badge span {
+  font-size: 1.3rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+/* Sizes for the bigger hero-style thumbs */
+.featured-article-thumb .thumb-icon-badge,
+.post-article-thumb .thumb-icon-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+}
+
+.featured-article-thumb .thumb-icon-badge span,
+.post-article-thumb .thumb-icon-badge span {
+  font-size: 1.9rem;
+}
+
+.featured-article-thumb .thumb-tag,
+.post-article-thumb .thumb-tag {
+  font-size: 0.72rem;
+  padding: 6px 13px;
 }
 
 .post-card-body {
@@ -541,10 +631,7 @@ a {
   width: 100%;
   height: 160px;
   border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3.2rem;
+  overflow: hidden;
   margin-bottom: 24px;
 }
 
@@ -644,13 +731,7 @@ a {
 
 .featured-article-thumb {
   height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.featured-article-thumb span {
-  font-size: 3rem;
+  overflow: hidden;
 }
 
 .featured-article-body {

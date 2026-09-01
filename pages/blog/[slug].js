@@ -42,10 +42,17 @@ export default function BlogPost({ post, related }) {
       <article className="content-page post-article">
         <div className="post-article-thumb" style={{ background: post.gradient }}>
           <div className="thumb-visual">
-            {post.category && <span className="thumb-tag">{post.category}</span>}
-            <div className="thumb-icon-badge">
-              <span>{post.emoji}</span>
+            <div className="thumb-top-row">
+              {post.category && <span className="thumb-tag">{post.category}</span>}
+              <div className="thumb-icon-badge">
+                <span>{post.emoji}</span>
+              </div>
             </div>
+            {post.tagline && (
+              <div className="thumb-heading">
+                <p className="thumb-title">{post.tagline}</p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -92,10 +99,17 @@ export default function BlogPost({ post, related }) {
                 <Link key={p.slug} href={`/blog/${p.slug}`} className="post-card">
                   <div className="post-thumb" style={{ background: p.gradient }}>
                     <div className="thumb-visual">
-                      {p.category && <span className="thumb-tag">{p.category}</span>}
-                      <div className="thumb-icon-badge">
-                        <span>{p.emoji}</span>
+                      <div className="thumb-top-row">
+                        {p.category && <span className="thumb-tag">{p.category}</span>}
+                        <div className="thumb-icon-badge">
+                          <span>{p.emoji}</span>
+                        </div>
                       </div>
+                      {p.tagline && (
+                        <div className="thumb-heading">
+                          <p className="thumb-title">{p.tagline}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="post-card-body">

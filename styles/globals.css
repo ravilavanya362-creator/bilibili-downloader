@@ -41,7 +41,7 @@ a {
   padding: 0 20px;
 }
 
-/* NAVBAR & CENTERED LOGO */
+/* NAVBAR & LOGO */
 .site-header {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
@@ -50,10 +50,11 @@ a {
   top: 0;
   z-index: 100;
   border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-  padding: 16px 24px;
+  padding: 12px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
 
 .nav-link {
@@ -67,13 +68,17 @@ a {
   color: #ff0844;
 }
 
-.brand-centered {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-flex;
+.nav-group {
+  display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+}
+
+.brand-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
   text-decoration: none;
 }
 
@@ -90,9 +95,9 @@ a {
 
 .brand-logo-text {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 800;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.4px;
   display: flex;
   align-items: baseline;
 }
@@ -933,4 +938,5 @@ a {
   text-align: center;
   color: var(--text-muted);
   font-size: 0.88rem;
-}
+  }
+  

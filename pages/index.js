@@ -213,10 +213,17 @@ export default function Home() {
             <Link href={`/blog/${featuredPost.slug}`} className="featured-article-card">
               <div className="featured-article-thumb" style={{ background: featuredPost.gradient }}>
                 <div className="thumb-visual">
-                  <span className="thumb-tag">{featuredPost.category || "Most Popular Guide"}</span>
-                  <div className="thumb-icon-badge">
-                    <span>{featuredPost.emoji}</span>
+                  <div className="thumb-top-row">
+                    <span className="thumb-tag">{featuredPost.category || "Most Popular Guide"}</span>
+                    <div className="thumb-icon-badge">
+                      <span>{featuredPost.emoji}</span>
+                    </div>
                   </div>
+                  {featuredPost.tagline && (
+                    <div className="thumb-heading">
+                      <p className="thumb-title">{featuredPost.tagline}</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="featured-article-body">
@@ -274,4 +281,4 @@ export default function Home() {
     </Layout>
   );
               }
-              
+          

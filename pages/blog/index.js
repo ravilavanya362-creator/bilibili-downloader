@@ -20,7 +20,12 @@ export default function BlogIndex({ posts }) {
           {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`} className="post-card">
               <div className="post-thumb" style={{ background: post.gradient }}>
-                {post.emoji}
+                <div className="thumb-visual">
+                  {post.category && <span className="thumb-tag">{post.category}</span>}
+                  <div className="thumb-icon-badge">
+                    <span>{post.emoji}</span>
+                  </div>
+                </div>
               </div>
               <div className="post-card-body">
                 <span className="post-date">

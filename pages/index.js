@@ -212,10 +212,14 @@ export default function Home() {
 
             <Link href={`/blog/${featuredPost.slug}`} className="featured-article-card">
               <div className="featured-article-thumb" style={{ background: featuredPost.gradient }}>
-                <span>{featuredPost.emoji}</span>
+                <div className="thumb-visual">
+                  <span className="thumb-tag">{featuredPost.category || "Most Popular Guide"}</span>
+                  <div className="thumb-icon-badge">
+                    <span>{featuredPost.emoji}</span>
+                  </div>
+                </div>
               </div>
               <div className="featured-article-body">
-                <span className="featured-badge">Most Popular Guide</span>
                 <h3>{featuredPost.title}</h3>
                 <p>{featuredPost.excerpt}</p>
                 <div className="article-meta-row">
@@ -270,4 +274,4 @@ export default function Home() {
     </Layout>
   );
               }
-          
+              

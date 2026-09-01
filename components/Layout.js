@@ -114,7 +114,7 @@ export default function Layout({ children, title, description }) {
             </div>
             <div>
               <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>
-                The Pavi Studio
+                Dharshan Studio
               </h3>
               <p style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 500, margin: 0 }}>
                 Creative Design & Tech Labs
@@ -194,7 +194,7 @@ export default function Layout({ children, title, description }) {
               Disclaimer: Bili Save is not affiliated with Bilibili. We do not host any media on our servers; all files are fetched directly from publicly available third-party sources.
             </p>
             <p style={{ marginTop: '12px', fontSize: '0.85rem', color: '#475569', fontWeight: 600 }}>
-              © {new Date().getFullYear()} Bili Save by The Pavi Studio. All rights reserved.
+              © {new Date().getFullYear()} Bili Save by Dharshan Studio. All rights reserved.
             </p>
           </div>
         </div>

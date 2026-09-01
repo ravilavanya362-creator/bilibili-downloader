@@ -56,19 +56,24 @@ export default function Layout({ children, title, description }) {
         />
       </Head>
 
-      <header className="site-header">
-        <Link href="/" className="brand-stack">
-          <img src="/logo2.png" alt="Logo" style={{ height: '38px', width: 'auto', objectFit: 'contain', borderRadius: '8px' }} />
-          <div className="brand-logo-text">
-            <span className="brand-name-main">Bili</span>
-            <span className="brand-name-accent">Save</span>
+      <header className="site-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 20px', borderBottom: '1px solid #f1f5f9', background: '#ffffff' }}>
+        
+        {/* Left Side: Logo on top & Website Name Downside (Reference style) */}
+        <Link href="/" className="brand-centered" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textDecoration: 'none' }}>
+          <img src="/logo2.png" alt="Logo" style={{ height: '32px', width: '32px', objectFit: 'cover', borderRadius: '50%', boxShadow: '0 2px 6px rgba(0,0,0,0.08)' }} />
+          <div className="brand-logo-text" style={{ display: 'flex', gap: '2px', marginTop: '1px' }}>
+            <span className="brand-name-main" style={{ fontWeight: 800, fontSize: '0.85rem', color: '#0f172a' }}>bili</span>
+            <span className="brand-name-accent" style={{ fontWeight: 800, fontSize: '0.85rem', color: '#ff0844' }}>save</span>
           </div>
         </Link>
 
-        <nav className="nav-group">
-          <Link href="/blog" className="nav-link">Blog</Link>
-          <Link href="/about" className="nav-link">About</Link>
+        {/* Right Side: Navigation Buttons */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <Link href="/" className="nav-link" style={{ fontSize: '0.9rem', fontWeight: 600, color: '#475569', textDecoration: 'none' }}>Home</Link>
+          <Link href="/blog" className="nav-link" style={{ fontSize: '0.9rem', fontWeight: 600, color: '#475569', textDecoration: 'none' }}>Blog</Link>
+          <Link href="/about" className="nav-link" style={{ fontSize: '0.9rem', fontWeight: 600, color: '#475569', textDecoration: 'none' }}>About</Link>
         </nav>
+
       </header>
 
       <main>{children}</main>
@@ -206,5 +211,5 @@ export default function Layout({ children, title, description }) {
       </footer>
     </>
   );
-}
-
+              }
+                

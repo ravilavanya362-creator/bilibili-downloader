@@ -109,8 +109,8 @@ export default function Home({ allPosts }) {
         </div>
       </section>
 
-      {/* How to Download Section with Images Perfectly Fitted */}
-      <section className="howto-section">
+      {/* How to Download Section (Texts Only - No Images) */}
+      <section className="howto-section" style={{ paddingBottom: '30px' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div className="eyebrow" style={{ background: 'rgba(255, 8, 68, 0.08)', color: '#ff0844', border: '1px solid rgba(255, 8, 68, 0.15)' }}>
@@ -120,33 +120,30 @@ export default function Home({ allPosts }) {
             <p className="howto-subtitle">Follow these 3 easy steps to save any video instantly.</p>
           </div>
 
-          <div className="howto-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', maxWidth: '960px' }}>
+          <div className="howto-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', maxWidth: '920px' }}>
             
-            <div className="howto-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <div className="howto-badge">1</div>
-              <h3 className="howto-step-title">Copy Link</h3>
-              <p className="howto-step-desc">Open Bilibili app or website, find your video, and copy its share link.</p>
-              <div className="howto-img-wrapper" style={{ marginTop: 'auto', width: '100%', maxHeight: '340px', borderRadius: '16px', overflow: 'hidden', background: '#0b0f19' }}>
-                <img src="/step-1.png" alt="Step 1: Copy Link" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
-              </div>
+            <div className="howto-card" style={{ padding: '32px 24px', alignItems: 'flex-start', textAlign: 'left' }}>
+              <div className="howto-badge" style={{ marginBottom: '14px' }}>1</div>
+              <h3 className="howto-step-title" style={{ fontSize: '1.15rem', marginBottom: '8px' }}>Copy Video Link</h3>
+              <p className="howto-step-desc" style={{ fontSize: '0.9rem', margin: 0 }}>
+                Open the Bilibili app or website, choose the video you want to download, and copy its share link or URL from the address bar.
+              </p>
             </div>
 
-            <div className="howto-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <div className="howto-badge">2</div>
-              <h3 className="howto-step-title">Paste URL</h3>
-              <p className="howto-step-desc">Paste the copied link into the input box above and click download.</p>
-              <div className="howto-img-wrapper" style={{ marginTop: 'auto', width: '100%', maxHeight: '340px', borderRadius: '16px', overflow: 'hidden', background: '#0b0f19' }}>
-                <img src="/step-2.png" alt="Step 2: Paste URL" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
-              </div>
+            <div className="howto-card" style={{ padding: '32px 24px', alignItems: 'flex-start', textAlign: 'left' }}>
+              <div className="howto-badge" style={{ marginBottom: '14px' }}>2</div>
+              <h3 className="howto-step-title" style={{ fontSize: '1.15rem', marginBottom: '8px' }}>Paste into Downloader</h3>
+              <p className="howto-step-desc" style={{ fontSize: '0.9rem', margin: 0 }}>
+                Return to Bili Save, paste your copied link into the input box at the top of the page, and click the download button.
+              </p>
             </div>
 
-            <div className="howto-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <div className="howto-badge">3</div>
-              <h3 className="howto-step-title">Save Video</h3>
-              <p className="howto-step-desc">Choose your preferred quality and save the video directly to your device.</p>
-              <div className="howto-img-wrapper" style={{ marginTop: 'auto', width: '100%', maxHeight: '340px', borderRadius: '16px', overflow: 'hidden', background: '#0b0f19' }}>
-                <img src="/step-3.png" alt="Step 3: Save Video" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
-              </div>
+            <div className="howto-card" style={{ padding: '32px 24px', alignItems: 'flex-start', textAlign: 'left' }}>
+              <div className="howto-badge" style={{ marginBottom: '14px' }}>3</div>
+              <h3 className="howto-step-title" style={{ fontSize: '1.15rem', marginBottom: '8px' }}>Save & Enjoy</h3>
+              <p className="howto-step-desc" style={{ fontSize: '0.9rem', margin: 0 }}>
+                Select your preferred video resolution/quality and tap download to save the MP4 file directly to your device storage.
+              </p>
             </div>
 
           </div>
@@ -155,7 +152,7 @@ export default function Home({ allPosts }) {
 
       {/* All Articles / Blog Section on Homepage */}
       <section className="featured-article-section" style={{ padding: '20px 16px 70px' }}>
-        <div className="container" style={{ maxWidth: '960px' }}>
+        <div className="container" style={{ maxWidth: '920px' }}>
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
             <div className="eyebrow" style={{ background: 'rgba(255, 8, 68, 0.08)', color: '#ff0844', border: '1px solid rgba(255, 8, 68, 0.15)' }}>
               FROM THE BLOG
@@ -164,6 +161,7 @@ export default function Home({ allPosts }) {
             <p className="howto-subtitle">Everything you need to know about video streaming and formats.</p>
           </div>
 
+          {/* Grid of all articles */}
           <div className="post-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
             {allPosts.map((post, index) => {
               const gradients = [
@@ -248,7 +246,7 @@ export default function Home({ allPosts }) {
 
       {/* FAQ Section */}
       <section className="faq-section">
-        <div className="container" style={{ maxWidth: '960px' }}>
+        <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div className="eyebrow" style={{ background: 'rgba(255, 8, 68, 0.08)', color: '#ff0844', border: '1px solid rgba(255, 8, 68, 0.15)' }}>
               HELP CENTER
@@ -303,5 +301,4 @@ export async function getStaticProps() {
       allPosts,
     },
   };
-                }
-        
+}

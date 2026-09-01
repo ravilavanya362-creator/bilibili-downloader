@@ -54,73 +54,151 @@ export default function Layout({ children, title, description }) {
       </Head>
 
       <header className="site-header">
-  <Link href="/blog" className="nav-link">Blog</Link>
-  
+        <Link href="/blog" className="nav-link">Blog</Link>
+        
         <Link href="/" className="brand-centered">
           <img src="/logo2.png" alt="Logo" style={{ height: '36px', width: 'auto', objectFit: 'contain', borderRadius: '8px' }} />
-
           <div className="brand-logo-text">
             <span className="brand-name-main">Bili</span>
             <span className="brand-name-accent">Save</span>
           </div>
         </Link>
 
-
-
-  <Link href="/about" className="nav-link">About</Link>
-</header>
-
-
+        <Link href="/about" className="nav-link">About</Link>
+      </header>
 
       <main>{children}</main>
 
-      {/* Step 8: Creator Section */}
-      <div className="container">
-        <section className="creator-box">
-          <span style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.8 }}>
-            Crafted with Excellence
-          </span>
-          <h2 style={{ fontSize: '1.8rem', margin: '8px 0 12px', fontWeight: 800 }}>
-            Dharshan Design and Tech Labs
-          </h2>
-          <p style={{ maxWidth: '500px', margin: '0 auto', opacity: 0.85, fontSize: '0.95rem' }}>
-            Building high-performance, seamless media tools for modern web experiences.
-          </p>
+      {/* ReelsDownloader-style White Theme Creator / Connect Section */}
+      <div className="container" style={{ marginTop: '40px', marginBottom: '20px' }}>
+        <div style={{
+          background: '#ffffff',
+          borderRadius: '24px',
+          padding: '32px 20px',
+          textAlign: 'center',
+          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.04)',
+          border: '1px solid #e2e8f0',
+          maxWidth: '520px',
+          margin: '0 auto'
+        }}>
+          <div style={{
+            display: 'inline-block',
+            background: '#fff1f2',
+            color: '#ff0844',
+            padding: '5px 14px',
+            borderRadius: '9999px',
+            fontSize: '0.72rem',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            marginBottom: '16px',
+            border: '1px solid #ffe4e6'
+          }}>
+            Connect with Creator
+          </div>
 
-          <div className="social-links">
-            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="social-btn">
-              <InstagramIcon size={18} /> Instagram
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+            <div style={{
+              width: '54px',
+              height: '54px',
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '1.5rem',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+              border: '2px solid #ffffff'
+            }}>
+              🎨
+            </div>
+            <div>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>
+                The Pavi Studio
+              </h3>
+              <p style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 500, margin: 0 }}>
+                Creative Design & Tech Labs
+              </p>
+            </div>
+          </div>
+
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '10px',
+            flexWrap: 'wrap'
+          }}>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" style={{
+              background: '#f8fafc',
+              color: '#0f172a',
+              border: '1px solid #cbd5e1',
+              padding: '10px 18px',
+              borderRadius: '50px',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              textDecoration: 'none'
+            }}>
+              <InstagramIcon size={16} /> Instagram
             </a>
-            <a href={THREADS_URL} target="_blank" rel="noreferrer" className="social-btn">
-              <ThreadsIcon size={18} /> Threads
+            
+            <a href={THREADS_URL} target="_blank" rel="noreferrer" style={{
+              background: '#f8fafc',
+              color: '#0f172a',
+              border: '1px solid #cbd5e1',
+              padding: '10px 18px',
+              borderRadius: '50px',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              textDecoration: 'none'
+            }}>
+              <ThreadsIcon size={16} /> Threads
             </a>
-            <a href={`mailto:${SUPPORT_EMAIL}`} className="social-btn">
-              <MailIcon size={18} /> Support Email
+
+            <a href={`mailto:${SUPPORT_EMAIL}`} style={{
+              background: '#f8fafc',
+              color: '#0f172a',
+              border: '1px solid #cbd5e1',
+              padding: '10px 18px',
+              borderRadius: '50px',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              textDecoration: 'none'
+            }}>
+              <MailIcon size={16} /> Support
             </a>
           </div>
-        </section>
+        </div>
       </div>
 
-      {/* Step 9 & 10: Legal & Disclaimer Footer */}
+      {/* Footer Section */}
       <footer className="site-footer">
         <div className="container">
           <div className="footer-nav">
             <Link href="/about">About Us</Link>
             <Link href="/contact">Contact</Link>
             <Link href="/privacy">Privacy Policy</Link>
-            <Link href="/terms">Terms of Service</Link>
-            <Link href="/copyright">DMCA Policy</Link>
-            <Link href="/disclaimer">Disclaimer</Link>
+            <Link href="/terms">Terms</Link>
+            <Link href="/copyright">DMCA</Link>
           </div>
           <div className="footer-copy">
-            <p>© {new Date().getFullYear()} Bili Save. All trademarks belong to their respective owners.</p>
-            <p style={{ marginTop: '6px', fontSize: '0.8rem' }}>
-              Disclaimer: Bili Save is not affiliated with, endorsed, or sponsored by Bilibili.
+            <p style={{ fontSize: '0.85rem', color: '#64748b', lineHeight: 1.6 }}>
+              Disclaimer: Bili Save is not affiliated with Bilibili. We do not host any media on our servers; all files are fetched directly from publicly available third-party sources.
+            </p>
+            <p style={{ marginTop: '12px', fontSize: '0.85rem', color: '#475569', fontWeight: 600 }}>
+              © {new Date().getFullYear()} Bili Save by The Pavi Studio. All rights reserved.
             </p>
           </div>
         </div>
       </footer>
     </>
   );
-  }
-              
+}

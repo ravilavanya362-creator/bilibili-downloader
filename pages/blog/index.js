@@ -26,7 +26,6 @@ export default function BlogIndex({ posts }) {
         {/* Premium Post Cards Grid */}
         <div className="post-list" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "24px" }}>
           {posts.map((post, index) => {
-            // Distinct stunning color gradients for each post card top banner
             const gradients = [
               "linear-gradient(135deg, #ff0844 0%, #ff4e50 100%)",
               "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)",
@@ -67,7 +66,7 @@ export default function BlogIndex({ posts }) {
                     </div>
                     {post.tagline && (
                       <div className="thumb-heading">
-                        <p className="thumb-title" style={{ fontSize: "0.95rem", color: "#fff", fontWeight: "700", textShadow: "0 2px 6px rgba(0,0,0,0.25)", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: vertical = "vertical" }}>
+                        <p className="thumb-title" style={{ fontSize: "0.95rem", color: "#fff", fontWeight: "700", textShadow: "0 2px 6px rgba(0,0,0,0.25)", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical" }}>
                           {post.tagline}
                         </p>
                       </div>
@@ -122,4 +121,4 @@ export default function BlogIndex({ posts }) {
 
 export async function getStaticProps() {
   return { props: { posts: getAllPosts() } };
-                  }
+}

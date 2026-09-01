@@ -25,7 +25,6 @@ export default function Layout({ children, title, description }) {
   const pageDescription = description || "Paste a bilibili.com or b23.tv link and get high quality MP4 downloads free and fast.";
 
   return (
-    <>    return (
     <>
       <Head>
         <title>{pageTitle}</title>
@@ -35,7 +34,7 @@ export default function Layout({ children, title, description }) {
         <meta name="theme-color" content="#ff0844" />
         <link rel="icon" href="/logo2.png" />
 
-        {/* Google Search Console Verification Meta Tag */}
+        {/* Google Search Console Exact Verification Tag */}
         <meta name="google-site-verification" content="zWtLQz8tYG0SPObePG6iU54FO8Ol3uiKkY5wbpo8m_Y" />
 
         {/* Open Graph */}
@@ -56,7 +55,6 @@ export default function Layout({ children, title, description }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </Head>
-
 
       <header className="site-header">
         <Link href="/blog" className="nav-link">Blog</Link>
@@ -207,5 +205,4 @@ export default function Layout({ children, title, description }) {
       </footer>
     </>
   );
-  }
-                
+}

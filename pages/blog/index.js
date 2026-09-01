@@ -21,10 +21,17 @@ export default function BlogIndex({ posts }) {
             <Link key={post.slug} href={`/blog/${post.slug}`} className="post-card">
               <div className="post-thumb" style={{ background: post.gradient }}>
                 <div className="thumb-visual">
-                  {post.category && <span className="thumb-tag">{post.category}</span>}
-                  <div className="thumb-icon-badge">
-                    <span>{post.emoji}</span>
+                  <div className="thumb-top-row">
+                    {post.category && <span className="thumb-tag">{post.category}</span>}
+                    <div className="thumb-icon-badge">
+                      <span>{post.emoji}</span>
+                    </div>
                   </div>
+                  {post.tagline && (
+                    <div className="thumb-heading">
+                      <p className="thumb-title">{post.tagline}</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="post-card-body">
@@ -50,4 +57,3 @@ export default function BlogIndex({ posts }) {
 export async function getStaticProps() {
   return { props: { posts: getAllPosts() } };
 }
-

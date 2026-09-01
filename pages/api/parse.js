@@ -58,6 +58,32 @@ async function resolveShortLink(url) {
   return res.url || url;
 }
 
+// Bilibili's anti-bot check is far more likely to 412 a request that shows
+// up with zero cookies. Visiting the homepage first picks up a buvid3 /
+// b_nut cookie that we then send along with the real API calls, which
+// mimics what a real browser does before it ever calls the API.
+async function getWarmupCookie() {
+  try {
+    const res = await fetch("https://www.bilibili.com/", {
+      headers: BILI_HEADERS,
+    });
+    // Node's fetch (undici) exposes multiple Set-Cookie headers via getSetCookie()
+    const setCookies =
+      typeof res.headers.getSetCookie === "function"
+        ? res.headers.getSetCookie()
+        : res.headers.get("set-cookie")
+        ? [res.headers.get("set-cookie")]
+        : [];
+    return setCookies
+      .map((c) => c.split(";")[0])
+      .filter(Boolean)
+      .join("; ");
+  } catch (e) {
+    console.error("[parse] warm-up cookie fetch failed:", e.message);
+    return "";
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -80,10 +106,15 @@ export default async function handler(req, res) {
       });
     }
 
+    const cookie = await getWarmupCookie();
+    const headersWithCookie = cookie
+      ? { ...BILI_HEADERS, Cookie: cookie }
+      : BILI_HEADERS;
+
     const viewQuery = bvid ? `bvid=${bvid}` : `aid=${aid}`;
     const viewRes = await fetch(
       `https://api.bilibili.com/x/web-interface/view?${viewQuery}`,
-      { headers: BILI_HEADERS }
+      { headers: headersWithCookie }
     );
     const viewJson = await safeJson(viewRes, "view API");
 
@@ -108,7 +139,7 @@ export default async function handler(req, res) {
 
     const playRes = await fetch(
       `https://api.bilibili.com/x/player/playurl?${playQuery.toString()}`,
-      { headers: BILI_HEADERS }
+      { headers: headersWithCookie }
     );
     const playJson = await safeJson(playRes, "playurl API");
 

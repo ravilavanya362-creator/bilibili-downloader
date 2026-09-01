@@ -501,14 +501,14 @@ a {
 }
 
 .post-thumb {
-  height: 150px;
+  height: 95px !important;
 }
 
-/* Premium gradient thumb visual: shared by post cards, featured card,
-   and single-article header. Mirrors an "app icon + hero heading" style —
-   category tag, a solid icon badge, and a short heading/tagline sit
-   directly on the gradient; the full title/excerpt follow below in
-   the white card body. */
+.featured-article-thumb {
+  height: 105px !important;
+  overflow: hidden;
+}
+
 .thumb-visual {
   position: relative;
   height: 100%;
@@ -516,7 +516,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 14px;
+  padding: 10px 14px !important;
   overflow: hidden;
 }
 

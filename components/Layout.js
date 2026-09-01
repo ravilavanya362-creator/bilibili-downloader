@@ -56,14 +56,15 @@ export default function Layout({ children, title, description }) {
         />
       </Head>
 
-      <header className="site-header">
+      <header className="site-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 20px' }}>
         <Link href="/blog" className="nav-link">Blog</Link>
         
-        <Link href="/" className="brand-centered">
-          <img src="/logo2.png" alt="Logo" style={{ height: '36px', width: 'auto', objectFit: 'contain', borderRadius: '8px' }} />
-          <div className="brand-logo-text">
-            <span className="brand-name-main">Bili</span>
-            <span className="brand-name-accent">Save</span>
+        {/* Logo on Top & Website Name Downside */}
+        <Link href="/" className="brand-centered" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textDecoration: 'none' }}>
+          <img src="/logo2.png" alt="Logo" style={{ height: '36px', width: '36px', objectFit: 'cover', borderRadius: '50%', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
+          <div className="brand-logo-text" style={{ display: 'flex', gap: '2px', marginTop: '2px' }}>
+            <span className="brand-name-main" style={{ fontWeight: 800, fontSize: '0.95rem', color: '#0f172a' }}>Bili</span>
+            <span className="brand-name-accent" style={{ fontWeight: 800, fontSize: '0.95rem', color: '#ff0844' }}>Save</span>
           </div>
         </Link>
 

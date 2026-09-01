@@ -41,7 +41,12 @@ export default function BlogPost({ post, related }) {
 
       <article className="content-page post-article">
         <div className="post-article-thumb" style={{ background: post.gradient }}>
-          {post.emoji}
+          <div className="thumb-visual">
+            {post.category && <span className="thumb-tag">{post.category}</span>}
+            <div className="thumb-icon-badge">
+              <span>{post.emoji}</span>
+            </div>
+          </div>
         </div>
 
         <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -86,7 +91,12 @@ export default function BlogPost({ post, related }) {
               {related.map((p) => (
                 <Link key={p.slug} href={`/blog/${p.slug}`} className="post-card">
                   <div className="post-thumb" style={{ background: p.gradient }}>
-                    {p.emoji}
+                    <div className="thumb-visual">
+                      {p.category && <span className="thumb-tag">{p.category}</span>}
+                      <div className="thumb-icon-badge">
+                        <span>{p.emoji}</span>
+                      </div>
+                    </div>
                   </div>
                   <div className="post-card-body">
                     <span className="post-date">
@@ -124,4 +134,4 @@ export async function getStaticProps({ params }) {
     ? posts.filter((p) => p.slug !== post.slug).slice(0, 2)
     : [];
   return { props: { post, related } };
-        }
+}

@@ -8,6 +8,37 @@ const BILI_HEADERS = {
   Referer: "https://www.bilibili.com/",
 };
 
+// Optional proxy support: routes the (small, JSON-only) Bilibili API calls
+// through a proxy so requests don't come from this server's own
+// (often-blocked) IP. Video file bytes are NOT routed through this — only
+// the tiny metadata calls in this file. Configure via env vars:
+//   PROXY_HOST, PROXY_PORT, PROXY_USERNAME, PROXY_PASSWORD
+// If PROXY_HOST is unset, requests go out normally (no proxy).
+let cachedDispatcher = null;
+async function getProxyDispatcher() {
+  const host = process.env.PROXY_HOST;
+  const port = process.env.PROXY_PORT;
+  if (!host || !port) return null;
+  if (cachedDispatcher) return cachedDispatcher;
+
+  const { ProxyAgent } = await import("undici");
+  const user = process.env.PROXY_USERNAME;
+  const pass = process.env.PROXY_PASSWORD;
+  const auth =
+    user && pass
+      ? `${encodeURIComponent(user)}:${encodeURIComponent(pass)}@`
+      : "";
+  const proxyUrl = `http://${auth}${host}:${port}`;
+  cachedDispatcher = new ProxyAgent(proxyUrl);
+  return cachedDispatcher;
+}
+
+async function proxiedFetch(url, options = {}) {
+  const dispatcher = await getProxyDispatcher();
+  if (!dispatcher) return fetch(url, options);
+  return fetch(url, { ...options, dispatcher });
+}
+
 function extractIds(rawUrl) {
   const bvMatch = rawUrl.match(/BV[0-9A-Za-z]{10}/);
   const avMatch = rawUrl.match(/av(\d+)/i);
@@ -36,7 +67,7 @@ async function safeJson(res, label) {
 
 async function resolveShortLink(url) {
   if (!/b23\.tv/.test(url)) return url;
-  const res = await fetch(url, {
+  const res = await proxiedFetch(url, {
     method: "GET",
     redirect: "follow",
     headers: BILI_HEADERS,
@@ -46,7 +77,7 @@ async function resolveShortLink(url) {
 
 async function getWarmupCookie() {
   try {
-    const res = await fetch("https://www.bilibili.com/", {
+    const res = await proxiedFetch("https://www.bilibili.com/", {
       headers: BILI_HEADERS,
     });
     const setCookies =
@@ -93,7 +124,7 @@ export default async function handler(req, res) {
       : BILI_HEADERS;
 
     const viewQuery = bvid ? `bvid=${bvid}` : `aid=${aid}`;
-    const viewRes = await fetch(
+    const viewRes = await proxiedFetch(
       `https://api.bilibili.com/x/web-interface/view?${viewQuery}`,
       { headers: headersWithCookie }
     );
@@ -118,7 +149,7 @@ export default async function handler(req, res) {
       high_quality: "1",
     });
 
-    const playRes = await fetch(
+    const playRes = await proxiedFetch(
       `https://api.bilibili.com/x/player/playurl?${playQuery.toString()}`,
       { headers: headersWithCookie }
     );

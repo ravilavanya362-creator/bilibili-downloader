@@ -10,16 +10,17 @@ export default async function handler(req, res) {
   }
 
   try {
-    const bilibiliApiResponse = await fetch(url, {
+    // మీ క్లౌడ్‌ఫ్లేర్ వర్కర్ లింక్ ఇక్కడ ఇవ్వండి
+    const workerProxyUrl = `https://your-cloudflare-worker-name.your-subdomain.workers.dev/?url=${encodeURIComponent(url)}`;
+
+    const bilibiliApiResponse = await fetch(workerProxyUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Referer': 'https://www.bilibili.com',
-        'Accept-Language': 'en-US,en;q=0.9',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       },
     });
 
     if (!bilibiliApiResponse.ok) {
-      throw new Error(`Bilibili API responded with status: ${bilibiliApiResponse.status}`);
+      throw new Error(`Proxy responded with status: ${bilibiliApiResponse.status}`);
     }
 
     const data = await bilibiliApiResponse.json();

@@ -10,7 +10,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // మీ క్లౌడ్‌ఫ్లేర్ వర్కర్ లింక్ ద్వారా Bilibili డేటాను ఫెచ్ చేయడం
     const proxyWorkerUrl = `https://nameless-mouse-57a8.lravi1916.workers.dev?url=${encodeURIComponent(videoUrl)}`;
 
     const response = await fetch(proxyWorkerUrl, {

@@ -1,39 +1,33 @@
-export default {
-  async fetch(request) {
-    const url = new URL(request.url);
-    const targetUrl = url.searchParams.get('url');
+export default async function handler(req, res) {
+  if (req.method !== 'GET' && req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-    if (!targetUrl) {
-      return new Response(JSON.stringify({ error: 'Missing target url' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-      });
+  const videoUrl = req.query.url || (req.body && req.body.url);
+
+  if (!videoUrl) {
+    return res.status(400).json({ error: 'Missing video URL' });
+  }
+
+  try {
+    // మీ క్లౌడ్‌ఫ్లేర్ వర్కర్ లింక్ ద్వారా Bilibili డేటాను ఫెచ్ చేయడం
+    const proxyWorkerUrl = `https://nameless-mouse-57a8.lravi1916.workers.dev?url=${encodeURIComponent(videoUrl)}`;
+
+    const response = await fetch(proxyWorkerUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch video details: ${response.statusText}`);
     }
 
-    try {
-      const modifiedRequest = new Request(targetUrl, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-          'Referer': 'https://www.bilibili.com'
-        },
-        method: request.method,
-      });
+    const data = await response.json();
+    return res.status(200).json(data);
 
-      const response = await fetch(modifiedRequest);
-      const data = await response.text();
-
-      return new Response(data, {
-        status: response.status,
-        headers: {
-          'Content-Type': response.headers.get('Content-Type') || 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        }
-      });
-    } catch (e) {
-      return new Response(JSON.stringify({ error: 'Error: ' + e.message }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-      });
-    }
-  },
-};
+  } catch (error) {
+    console.error('Parse Error:', error);
+    return res.status(500).json({ error: 'Failed to parse video: ' + error.message });
+  }
+}

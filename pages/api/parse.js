@@ -11,28 +11,28 @@ export default {
     }
 
     try {
-      // 1. ఒకవేళ b23.tv షార్ట్ లింక్ అయితే అది అసలు లింక్‌గా మళ్లేలా చూసుకోవడం
-      let finalTargetUrl = targetUrl;
+      // 1. b23.tv షార్ట్ లింక్ అయితే దాన్ని ఫుల్ లింక్‌గా మార్చడం (Expand redirect)
+      let finalUrl = targetUrl;
       if (targetUrl.includes('b23.tv')) {
-        const expandRes = await fetch(targetUrl, {
-          method: 'HEAD',
+        const redirectRes = await fetch(targetUrl, {
+          method: 'GET',
           redirect: 'follow',
           headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
           }
         });
-        finalTargetUrl = expandRes.url || targetUrl;
+        finalUrl = redirectRes.url || targetUrl;
       }
 
-      // 2. Bilibili కి అవసరమైన ప్రాపర్ హెడర్స్‌తో రిక్వెస్ట్ పంపడం
-      const modifiedRequest = new Request(finalTargetUrl, {
+      // 2. Bilibili API కి తగినట్లుగా హెడర్స్ సెట్ చేయడం
+      const modifiedRequest = new Request(finalUrl, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
           'Referer': 'https://www.bilibili.com',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-          'Accept-Language': 'en-US,en;q=0.5'
+          'Origin': 'https://www.bilibili.com',
+          'Accept': 'application/json, text/plain, */*'
         },
-        method: request.method,
+        method: 'GET',
       });
 
       const response = await fetch(modifiedRequest);

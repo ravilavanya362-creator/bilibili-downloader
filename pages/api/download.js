@@ -1,13 +1,7 @@
 // pages/api/download.js
 // Bilibili's CDN rejects requests that don't carry a bilibili.com
-// Referer header, so the browser can't hit the stream URL directly.
-// This route fetches the stream server-side (with the right headers)
-// and pipes the bytes back to the browser as a file download.
-//
-// IMPORTANT (Vercel free/Hobby tier): serverless functions have a
-// response size/time ceiling, so this works well for typical short
-// clips but may time out on very long videos. See the README for
-// notes on upgrading or self-hosting the API if you hit that limit.
+// Referer header, so this route fetches the stream server-side and
+// pipes the bytes back to the browser as a file download.
 
 export const config = {
   api: {
@@ -77,4 +71,3 @@ export default async function handler(req, res) {
     }
   }
 }
-

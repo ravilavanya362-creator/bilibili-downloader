@@ -23,12 +23,18 @@ const BILI_HEADERS = {
 // the tiny metadata calls in this file. Configure via env vars:
 //   PROXY_HOST, PROXY_PORT, PROXY_USERNAME, PROXY_PASSWORD
 // If PROXY_HOST is unset, requests go out normally (no proxy).
-let cachedDispatcher = null;
+//
+// IMPORTANT: we deliberately do NOT cache/reuse a single ProxyAgent across
+// calls. Reusing one keeps the same underlying TCP connection (and thus
+// the same residential exit IP) for every request in this invocation —
+// if that one IP happens to be flagged, every call fails identically. By
+// creating a fresh ProxyAgent (and closing it after use) for each call, we
+// get a new connection — and with most residential providers, a new exit
+// IP — per request, so a single bad IP doesn't take down the whole flow.
 async function getProxyDispatcher() {
   const host = process.env.PROXY_HOST;
   const port = process.env.PROXY_PORT;
   if (!host || !port) return null;
-  if (cachedDispatcher) return cachedDispatcher;
 
   const { ProxyAgent } = await import("undici");
   const user = process.env.PROXY_USERNAME;
@@ -38,20 +44,23 @@ async function getProxyDispatcher() {
       ? `${encodeURIComponent(user)}:${encodeURIComponent(pass)}@`
       : "";
   const proxyUrl = `http://${auth}${host}:${port}`;
-  cachedDispatcher = new ProxyAgent(proxyUrl);
-  return cachedDispatcher;
+  return new ProxyAgent(proxyUrl);
 }
 
-// Wraps fetch to go through the proxy dispatcher when one is configured.
+// Wraps fetch to go through a fresh proxy connection each call.
 async function proxiedFetch(url, options = {}) {
   const dispatcher = await getProxyDispatcher();
   if (!dispatcher) return fetch(url, options);
-  // Residential proxies can be flaky — retry once on a hard network failure.
   try {
-    return await fetch(url, { ...options, dispatcher });
+    const res = await fetch(url, { ...options, dispatcher });
+    return res;
   } catch (e) {
-    console.error("[parse] proxiedFetch failed, retrying once:", e.message);
-    return fetch(url, { ...options, dispatcher });
+    console.error("[parse] proxiedFetch failed, retrying with fresh IP:", e.message);
+    const freshDispatcher = await getProxyDispatcher();
+    return fetch(url, { ...options, dispatcher: freshDispatcher });
+  } finally {
+    // Tear down this connection so the next call is forced onto a new one.
+    dispatcher.close?.().catch(() => {});
   }
 }
 

@@ -1,6 +1,15 @@
 // pages/api/parse.js
 // Resolves a bilibili.com video URL into a title, cover image, and a
 // direct (progressive mp4) stream URL that can be downloaded.
+//
+// Notes:
+// - Uses bilibili's public web API (no login). Without login, the
+//   highest quality bilibili will grant is usually 720p (qn=64).
+//   Higher qualities (1080p+) generally require a logged-in session
+//   cookie (SESSDATA), which this demo does not collect.
+// - We request platform=html5 so bilibili returns a single progressive
+//   "durl" file instead of separate DASH video/audio streams that
+//   would need ffmpeg to mux together (not practical on serverless).
 
 const BILI_HEADERS = {
   "User-Agent":
@@ -33,10 +42,17 @@ async function getProxyDispatcher() {
   return cachedDispatcher;
 }
 
+// Wraps fetch to go through the proxy dispatcher when one is configured.
 async function proxiedFetch(url, options = {}) {
   const dispatcher = await getProxyDispatcher();
   if (!dispatcher) return fetch(url, options);
-  return fetch(url, { ...options, dispatcher });
+  // Residential proxies can be flaky — retry once on a hard network failure.
+  try {
+    return await fetch(url, { ...options, dispatcher });
+  } catch (e) {
+    console.error("[parse] proxiedFetch failed, retrying once:", e.message);
+    return fetch(url, { ...options, dispatcher });
+  }
 }
 
 function extractIds(rawUrl) {
@@ -66,15 +82,28 @@ async function safeJson(res, label) {
 }
 
 async function resolveShortLink(url) {
+  // b23.tv short links redirect to the full bilibili.com URL. This is a
+  // plain redirect service, not blocked by anti-bot — skip the proxy here
+  // to reduce failure surface, and fall back to returning the original
+  // url if the redirect fetch itself fails for any reason.
   if (!/b23\.tv/.test(url)) return url;
-  const res = await proxiedFetch(url, {
-    method: "GET",
-    redirect: "follow",
-    headers: BILI_HEADERS,
-  });
-  return res.url || url;
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      headers: BILI_HEADERS,
+    });
+    return res.url || url;
+  } catch (e) {
+    console.error("[parse] resolveShortLink failed:", e.message);
+    return url;
+  }
 }
 
+// Bilibili's anti-bot check is far more likely to 412 a request that shows
+// up with zero cookies. Visiting the homepage first picks up a buvid3 /
+// b_nut cookie that we then send along with the real API calls, which
+// mimics what a real browser does before it ever calls the API.
 async function getWarmupCookie() {
   try {
     const res = await proxiedFetch("https://www.bilibili.com/", {

@@ -1,15 +1,6 @@
 // pages/api/parse.js
 // Resolves a bilibili.com video URL into a title, cover image, and a
 // direct (progressive mp4) stream URL that can be downloaded.
-//
-// Notes:
-// - Uses bilibili's public web API (no login). Without login, the
-//   highest quality bilibili will grant is usually 720p (qn=64).
-//   Higher qualities (1080p+) generally require a logged-in session
-//   cookie (SESSDATA), which this demo does not collect.
-// - We request platform=html5 so bilibili returns a single progressive
-//   "durl" file instead of separate DASH video/audio streams that
-//   would need ffmpeg to mux together (not practical on serverless).
 
 const BILI_HEADERS = {
   "User-Agent":
@@ -17,23 +8,14 @@ const BILI_HEADERS = {
   Referer: "https://www.bilibili.com/",
 };
 
-// Optional proxy support: routes the (small, JSON-only) Bilibili API calls
-// through a proxy so requests don't come from this server's own
-// (often-blocked) IP. Video file bytes are NOT routed through this — only
-// the tiny metadata calls in this file. Configure via env vars:
-//   PROXY_HOST, PROXY_PORT, PROXY_USERNAME, PROXY_PASSWORD
-// If PROXY_HOST is unset, requests go out normally (no proxy).
-//
 // IPRoyal (and most residential proxy providers) assign an IP per SESSION,
 // where the session is identified by a string embedded in the password
 // (e.g. "<password>_country-us_session-<id>_lifetime-10m"). Two calls with
 // the same session id get the SAME exit IP; two calls with different
-// session ids get DIFFERENT exit IPs. Simply reconnecting the TCP socket
-// is not sufficient to force a new IP — the session id is what controls
-// it. So: we generate one random session id per incoming /api/parse
-// request (shared by all Bilibili calls within that request, so they look
-// like one consistent browsing session), and a fresh random id on retry
-// so a single flagged IP doesn't repeat.
+// session ids get DIFFERENT exit IPs. We generate one random session id
+// per incoming /api/parse request (shared by all Bilibili calls within
+// that request, so they look like one consistent browsing session), and a
+// fresh random id on retry so a single flagged IP doesn't repeat.
 function randomSessionId() {
   return Math.random().toString(36).slice(2, 10);
 }
@@ -61,9 +43,6 @@ function buildProxyDispatcherFactory() {
 
 const getDispatcherForSession = buildProxyDispatcherFactory();
 
-// Wraps fetch to go through the proxy using the given session id (so
-// callers control when a fresh IP is needed vs. when consistency is
-// wanted). Retries once with a brand-new random session id on failure.
 async function proxiedFetch(url, options = {}, sessionId) {
   if (!getDispatcherForSession) return fetch(url, options);
   const dispatcher = await getDispatcherForSession(sessionId);
